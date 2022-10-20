@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3c2f5687-e7ea-4118-bb16-767efcb835bb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/Console/InputRedirector.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/Console/InputRedirector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/Console/OutputRedirector.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/Console/OutputRedirector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/ExampleFileFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/ExampleFileFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/IDE/IDEDisassembler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/IDE/IDEDisassembler$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/IDE/IDEDisassembler.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/IDE/IDEDisassembler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/IDE/IDEInterpreter$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/IDE/IDEInterpreter$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/IDE/IDEInterpreter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/IDE/IDEInterpreter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/Visitors/TableVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/Visitors/TableVisitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/Visitors/TreeVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Core/Visitors/TreeVisitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/GUI/AboutDialog$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/GUI/AboutDialog$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/GUI/AboutDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/GUI/AboutDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/GUI/FileFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/GUI/FileFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/GUI/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/GUI/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/AbstractSyntaxTrees/VarDeclaration.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/AbstractSyntaxTrees/VarDeclaration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/AbstractSyntaxTrees/Visitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/AbstractSyntaxTrees/Visitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/AbstractSyntaxTrees/Vname.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/AbstractSyntaxTrees/Vname.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/CodeGenerator/Encoder.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/CodeGenerator/Encoder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/ContextualAnalyzer/Checker.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/ContextualAnalyzer/Checker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/IDEReporter.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/IDEReporter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/SyntacticAnalyzer/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/SyntacticAnalyzer/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/SyntacticAnalyzer/Scanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/SyntacticAnalyzer/Scanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/SyntacticAnalyzer/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/SyntacticAnalyzer/Token.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/TreeDrawer/LayoutVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/build/classes/Triangle/TreeDrawer/LayoutVisitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/nbproject/build-impl.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/nbproject/build-impl.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/nbproject/genfiles.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/nbproject/genfiles.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/nbproject/private/private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ide-triangle-v1.1.src/nbproject/project.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ide-triangle-v1.1.src/nbproject/project.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2FQOJWG5KFA8jQWjqemjNnRegK1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c2f5687-e7ea-4118-bb16-767efcb835bb" name="Changes" comment="" />
+      <created>1664420803640</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1664420803640</updated>
+    </task>
+    <servers />
+  </component>
+</project>
