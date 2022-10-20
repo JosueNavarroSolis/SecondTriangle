@@ -1122,9 +1122,12 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    //Editado por Erick Madrigal
     @Override
-    public Object visitVarDeclarationInit(VarDeclarationInit aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {
+        ast.I.visit(this,null);
+        ast.E.visit(this,null);
+        return null;
     }
 
     @Override
