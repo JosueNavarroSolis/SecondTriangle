@@ -1124,10 +1124,14 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     //Editado por Erick Madrigal
     @Override
-    public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {
-        ast.I.visit(this,null);
-        ast.E.visit(this,null);
+    public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {               
+        TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+        idTable.enter(ast.I.spelling, ast);
+        if (ast.duplicated)
+            reporter.reportError ("identifier \"%\" already declared",
+                                  ast.I.spelling, ast.position);
         return null;
+        
     }
 
     @Override
