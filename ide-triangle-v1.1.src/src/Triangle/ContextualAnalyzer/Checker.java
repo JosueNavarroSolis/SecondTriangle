@@ -1126,6 +1126,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     @Override
     public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {               
         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+        ast.T = eType;
         idTable.enter(ast.I.spelling, ast);
         if (ast.duplicated)
             reporter.reportError ("identifier \"%\" already declared",
