@@ -17,6 +17,7 @@ public class ForFromCommand extends Command{
     E = eAST;
   }
 
+  @Override
   public Object visit(Visitor v, Object o) {
     return v.visitForFromCommand(this, o);
   }

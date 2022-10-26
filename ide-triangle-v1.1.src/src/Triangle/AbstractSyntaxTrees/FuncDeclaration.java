@@ -36,4 +36,5 @@ public class FuncDeclaration extends Declaration {
   public FormalParameterSequence FPS;
   public TypeDenoter T;
   public Expression E;
+  public Boolean V;//visited variable
 }

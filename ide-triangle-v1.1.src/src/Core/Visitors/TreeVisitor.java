@@ -51,6 +51,7 @@ import Triangle.AbstractSyntaxTrees.LetCommand;
 import Triangle.AbstractSyntaxTrees.LetExpression;
 import Triangle.AbstractSyntaxTrees.LocalDeclaration;
 import Triangle.AbstractSyntaxTrees.LoopCommandAST1;
+import Triangle.AbstractSyntaxTrees.LoopDeclaration;
 import Triangle.AbstractSyntaxTrees.LoopForFromUntil;
 import Triangle.AbstractSyntaxTrees.LoopForFromWhile;
 import Triangle.AbstractSyntaxTrees.LoopUntilDoAST;
@@ -288,6 +289,10 @@ public class TreeVisitor implements Visitor {
     
     public Object visitLocalDeclaration(LocalDeclaration ast, Object obj) {
         return(createBinary("Local Declaration", ast.D1, ast.D2));
+    }
+    
+    public Object visitLoopDeclaration(LocalDeclaration ast, Object obj) {
+        return(createBinary("Loop Declaration", ast.D1, ast.D2));
     }
     
     public Object visitTypeDeclaration(TypeDeclaration ast, Object obj) {
@@ -760,5 +765,10 @@ public class TreeVisitor implements Visitor {
 
     public Object visitReturnCommand(ReturnCommand aThis, Object o) {
         return(createNullary("Return Command"));
+    }
+
+    @Override
+    public Object visitLoopDeclaration(LoopDeclaration aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

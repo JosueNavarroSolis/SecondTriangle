@@ -16,6 +16,7 @@ public class ToCommandLiteral extends Command{
     CLCT = east;
   }
 
+   @Override
   public Object visit(Visitor v, Object o) {
     return v.visitToCommandLiteralAST(this, o);
   }

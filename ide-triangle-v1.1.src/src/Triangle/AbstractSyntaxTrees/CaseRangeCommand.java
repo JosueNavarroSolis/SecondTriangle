@@ -30,6 +30,7 @@ public class CaseRangeCommand extends Command{
         TC = null;
     }
     
+    @Override
     public Object visit(Visitor v, Object o){
         return v.visitCaseRangeCommand(this, o);
     }
