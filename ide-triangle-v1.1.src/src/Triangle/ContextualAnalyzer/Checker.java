@@ -891,6 +891,9 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
       } else if (binding instanceof VarFormalParameter) {
         ast.type = ((VarFormalParameter) binding).T;
         ast.variable = true;
+      } else if (binding instanceof VarDeclarationInit) {
+        ast.type = ((VarDeclarationInit) binding).T;
+        ast.variable = true;
       } else
         reporter.reportError ("\"%\" is not a const or var identifier",
                               ast.I.spelling, ast.I.position);
