@@ -26,6 +26,7 @@ public class FuncDeclaration extends Declaration {
     FPS = fpsAST;
     T = tAST;
     E = eAST;
+    V = false; 
   }
 
   public Object visit (Visitor v, Object o) {
