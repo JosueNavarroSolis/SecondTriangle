@@ -397,10 +397,10 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
                             ast.I.spelling, ast.position);
     return null;
   }
-
+  //editado
   public Object visitFuncDeclaration(FuncDeclaration ast, Object o) {
     ast.T = (TypeDenoter) ast.T.visit(this, null);
-    idTable.enter (ast.I.spelling, ast); // permits recursion
+    //idTable.enter (ast.I.spelling, ast); // permits recursion
     if (ast.duplicated)
       reporter.reportError ("identifier \"%\" already declared",
                             ast.I.spelling, ast.position);
@@ -413,9 +413,9 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
                             ast.I.spelling, ast.E.position);
     return null;
   }
-
+  //editado
   public Object visitProcDeclaration(ProcDeclaration ast, Object o) {
-    idTable.enter (ast.I.spelling, ast); // permits recursion
+    //idTable.enter (ast.I.spelling, ast); // permits recursion
     if (ast.duplicated)
       reporter.reportError ("identifier \"%\" already declared",
                             ast.I.spelling, ast.position);
@@ -430,57 +430,64 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
     Declaration d1 = ast.D1;
     Declaration d2 = ast.D2;
-    if(((FuncDeclaration) d1).V && d1 instanceof FuncDeclaration){
-        return null;
-    }
-    if(((ProcDeclaration) d2).V && d1 instanceof ProcDeclaration){
-        return null;
-    }
-    if (d1 instanceof SequentialDeclaration){
-        if (d2 instanceof ProcDeclaration){
-            addFunc((FuncDeclaration) d2);
-            d1.visit(this,null); 
-        } else {
-            if (d2 instanceof FuncDeclaration){
-                addFunc((FuncDeclaration) d2);
-                d1.visit(this,null);
+    try{
+        if( d2 instanceof FuncDeclaration && ((FuncDeclaration) d2).V){
+            return null;
+        }
+        if( d2 instanceof ProcDeclaration && ((ProcDeclaration) d2).V){
+            return null;
+        }
+        if (d1 instanceof SequentialDeclaration){
+            if (d2 instanceof ProcDeclaration){
+                addProc((ProcDeclaration) d2);
+                d1.visit(this,null); 
+            } else {
+                if (d2 instanceof FuncDeclaration){
+                    addFunc((FuncDeclaration) d2);
+                    d1.visit(this,null);
+                }
+            }            
+        } else{
+          if (d1 instanceof FuncDeclaration) {
+            addFunc((FuncDeclaration) d1);
+          } else {
+            if (d1 instanceof ProcDeclaration) {
+              addProc((ProcDeclaration) d1);
             }
-        }
-    } else{
-      if (d1 instanceof FuncDeclaration) {
-        addFunc((FuncDeclaration) d1);
-      } else {
-        if (d1 instanceof ProcDeclaration) {
-          addProc((ProcDeclaration) d1);
-        }
-      }
-      
-      if (d2 instanceof FuncDeclaration) {
-        addFunc((FuncDeclaration) d2);
-      } else {
-        if (d2 instanceof ProcDeclaration) {          
-          addProc((ProcDeclaration) d2);
-        }
-      }
-    }  
-    //ast.D1.visit(this, null);
-    //ast.D2.visit(this, null);
-    d1.visit(this, null);
-    d2.visit(this, null);
-    return null;
+          }
+
+          if (d2 instanceof FuncDeclaration) {
+            addFunc((FuncDeclaration) d2);
+          } else {
+            if (d2 instanceof ProcDeclaration) {          
+              addProc((ProcDeclaration) d2);
+            }
+          }
+        }  
+        //ast.D1.visit(this, null);
+        //ast.D2.visit(this, null);
+        d1.visit(this, null);
+        d2.visit(this, null);
+        return null;
+
+    }catch(Exception e){
+        d1.visit(this, null);
+        d2.visit(this, null);
+        return null;
+    }
+    
   }
   
   //createdd by Erick Madrigal
   public void addFunc (FuncDeclaration ast){
         ast.T = (TypeDenoter) ast.T.visit(this,null);
-        
         idTable.enter(ast.I.spelling, ast);
         
         if(!ast.duplicated){
             idTable.openScope();
             ast.FPS.visit(this,null);
             idTable.closeScope();
-            ast.V=true;            
+            ast.V=true;         
         }else{
             reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);        
         } 
@@ -489,16 +496,16 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   
   //createdd by Erick Madrigal
   public void addProc(ProcDeclaration ast){
-      idTable.enter(ast.I.spelling, ast);
       
-        if(!ast.duplicated){
-            idTable.openScope();
-            ast.FPS.visit(this,null);
-            idTable.closeScope();
-            ast.V=true;            
-        }else{
-            reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);        
-        } 
+    idTable.enter(ast.I.spelling, ast);
+    if(!ast.duplicated){
+        idTable.openScope();
+        ast.FPS.visit(this,null);
+        idTable.closeScope();
+        ast.V=true;            
+    }else{
+        reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);        
+    } 
   }
    
   public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {
@@ -577,7 +584,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // Always returns null. Does not use the given object.
 
   public Object visitConstFormalParameter(ConstFormalParameter ast, Object o) {
-    ast.T = (TypeDenoter) ast.T.visit(this, null);
+    ast.T = (TypeDenoter) ast.T.visit(this, null); 
     idTable.enter(ast.I.spelling, ast);
     if (ast.duplicated)
       reporter.reportError ("duplicated formal parameter \"%\"",
@@ -894,6 +901,12 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
       } else if (binding instanceof VarDeclarationInit) {
         ast.type = ((VarDeclarationInit) binding).T;
         ast.variable = true;
+      /*} else if (binding instanceof ProcDeclaration) {
+        //ast.type = ((ProcDeclaration) binding).T;
+        ast.variable = false;
+      } else if (binding instanceof FuncDeclaration) {
+        ast.type = ((FuncDeclaration) binding).T;
+        ast.variable = false;*/
       } else
         reporter.reportError ("\"%\" is not a const or var identifier",
                               ast.I.spelling, ast.I.position);
