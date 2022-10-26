@@ -425,13 +425,82 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     idTable.closeScope();
     return null;
   }
-
+  //editado por Erick Madrigal
+  @Override
   public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
-    ast.D1.visit(this, null);
-    ast.D2.visit(this, null);
+    Declaration d1 = ast.D1;
+    Declaration d2 = ast.D2;
+    if(((FuncDeclaration) d1).V && d1 instanceof FuncDeclaration){
+        return null;
+    }
+    if(((ProcDeclaration) d2).V && d1 instanceof ProcDeclaration){
+        return null;
+    }
+    if (d1 instanceof SequentialDeclaration){
+        if (d2 instanceof ProcDeclaration){
+            addFunc((FuncDeclaration) d2);
+            d1.visit(this,null); 
+        } else {
+            if (d2 instanceof FuncDeclaration){
+                addFunc((FuncDeclaration) d2);
+                d1.visit(this,null);
+            }
+        }
+    } else{
+      if (d1 instanceof FuncDeclaration) {
+        addFunc((FuncDeclaration) d1);
+      } else {
+        if (d1 instanceof ProcDeclaration) {
+          addProc((ProcDeclaration) d1);
+        }
+      }
+      
+      if (d2 instanceof FuncDeclaration) {
+        addFunc((FuncDeclaration) d2);
+      } else {
+        if (d2 instanceof ProcDeclaration) {          
+          addProc((ProcDeclaration) d2);
+        }
+      }
+    }  
+    //ast.D1.visit(this, null);
+    //ast.D2.visit(this, null);
+    d1.visit(this, null);
+    d2.visit(this, null);
     return null;
   }
   
+  //createdd by Erick Madrigal
+  public void addFunc (FuncDeclaration ast){
+        ast.T = (TypeDenoter) ast.T.visit(this,null);
+        
+        idTable.enter(ast.I.spelling, ast);
+        
+        if(!ast.duplicated){
+            idTable.openScope();
+            ast.FPS.visit(this,null);
+            idTable.closeScope();
+            ast.V=true;            
+        }else{
+            reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);        
+        } 
+        
+  }
+  
+  //createdd by Erick Madrigal
+  public void addProc(ProcDeclaration ast){
+      idTable.enter(ast.I.spelling, ast);
+      
+        if(!ast.duplicated){
+            idTable.openScope();
+            ast.FPS.visit(this,null);
+            idTable.closeScope();
+            ast.V=true;            
+        }else{
+            reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);        
+        } 
+  }
+   
   public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {
     ast.D1.visit(this, null);
     ast.D2.visit(this, null);
