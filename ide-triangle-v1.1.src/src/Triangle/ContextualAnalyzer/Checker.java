@@ -159,6 +159,20 @@ public Object visitCasesCommand(CasesCommand ast, Object obj){
 }
 
 public Object visitSelectCommand(SelectCommand ast, Object obj){
+    TypeDenoter eType = (TypeDenoter) ast.expression.visit(this, null);
+    boolean boolError = false;
+    char tipo;
+    if (!eType.equals(StdEnvironment.integerType)){
+        tipo = 'i';
+        if(!eType.equals(StdEnvironment.charType)){
+            tipo = 'c';
+            boolError = true;
+        }
+    }
+        if(!eType.equals(StdEnvironment.charType))
+            boolError = true;
+    if(boolError)
+         reporter.reportError("Integer or Char expression expected here!","",ast.expression.position);
     return null;
 }
 
@@ -1121,7 +1135,9 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     @Override
     public Object visitLoopCommandAST1(LoopCommandAST1 aThis, Object o) {
-        aThis.I.visit(this, null);
+        if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
         aThis.WhileVar.visit(this, null);
         return null;
     }
@@ -1156,7 +1172,9 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     @Override
     public Object visitLoopUntilDoAST(LoopUntilDoAST aThis, Object o) {
-        aThis.I.visit(this, null);
+        if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
         aThis.UntilVar.visit(this, null);
         return null;
     }
@@ -1182,7 +1200,10 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     @Override
     public Object visitLooopWhileEndCommand(LoopWhileEndAST aThis, Object o) {
         aThis.C.visit(this, null);
-        aThis.I.visit(this, null);
+        if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
+        aThis.WhileV.visit(this, null);
         return null;
     }
 
@@ -1197,7 +1218,10 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     @Override
     public Object visitLooopUntilEndCommand(LoopUntilEndAST aThis, Object o) {
         aThis.C.visit(this, null);
-        aThis.I.visit(this, null);
+        if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
+        aThis.UntilEnd.visit(this, null);
         return null;
     }
 
