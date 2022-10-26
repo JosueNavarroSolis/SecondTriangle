@@ -24,6 +24,7 @@ public class ProcDeclaration extends Declaration {
     I = iAST;
     FPS = fpsAST;
     C = cAST;
+    V = false; 
   }
 
   public Object visit (Visitor v, Object o) {
