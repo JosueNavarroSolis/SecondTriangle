@@ -174,6 +174,20 @@ public Object visitCasesCommand(CasesCommand ast, Object obj){
 
 @Override
 public Object visitSelectCommand(SelectCommand ast, Object obj){
+    TypeDenoter eType = (TypeDenoter) ast.expression.visit(this, null);
+    boolean boolError = false;
+    char tipo;
+    if (!eType.equals(StdEnvironment.integerType)){
+        tipo = 'i';
+        if(!eType.equals(StdEnvironment.charType)){
+            tipo = 'c';
+            boolError = true;
+        }
+    }
+        if(!eType.equals(StdEnvironment.charType))
+            boolError = true;
+    if(boolError)
+         reporter.reportError("Integer or Char expression expected here!","",ast.expression.position);
     
     TypeDenoter eType = (TypeDenoter) ast.expression.visit(this, null);
     boolean boolError = false;
@@ -296,7 +310,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
 @Override
   public Object visitWhileCommand(WhileCommand ast, Object o) {
-    TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     if (! eType.equals(StdEnvironment.booleanType))
       reporter.reportError("Boolean expression expected here", "", ast.E.position);
         if(o != null){
@@ -464,10 +478,10 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
                             ast.I.spelling, ast.position);
     return null;
   }
-
+  //editado
   public Object visitFuncDeclaration(FuncDeclaration ast, Object o) {
     ast.T = (TypeDenoter) ast.T.visit(this, null);
-    idTable.enter (ast.I.spelling, ast); // permits recursion
+    //idTable.enter (ast.I.spelling, ast); // permits recursion
     if (ast.duplicated)
       reporter.reportError ("identifier \"%\" already declared",
                             ast.I.spelling, ast.position);
@@ -480,9 +494,9 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
                             ast.I.spelling, ast.E.position);
     return null;
   }
-
+  //editado
   public Object visitProcDeclaration(ProcDeclaration ast, Object o) {
-    idTable.enter (ast.I.spelling, ast); // permits recursion
+    //idTable.enter (ast.I.spelling, ast); // permits recursion
     if (ast.duplicated)
       reporter.reportError ("identifier \"%\" already declared",
                             ast.I.spelling, ast.position);
@@ -492,15 +506,43 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     idTable.closeScope();
     return null;
   }
+  //editado por Erick Madrigal
+  @Override
+  public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
+    Declaration d1 = ast.D1;
+    Declaration d2 = ast.D2;
+    try{
+        if( d2 instanceof FuncDeclaration && ((FuncDeclaration) d2).V){
+            return null;
+        }
+        if( d2 instanceof ProcDeclaration && ((ProcDeclaration) d2).V){
+            return null;
+        }
+        if (d1 instanceof SequentialDeclaration){
+            if (d2 instanceof ProcDeclaration){
+                addProc((ProcDeclaration) d2);
+                d1.visit(this,null); 
+            } else {
+                if (d2 instanceof FuncDeclaration){
+                    addFunc((FuncDeclaration) d2);
+                    d1.visit(this,null);
+                }
+            }            
+        } else{
+          if (d1 instanceof FuncDeclaration) {
+            addFunc((FuncDeclaration) d1);
+          } else {
+            if (d1 instanceof ProcDeclaration) {
+              addProc((ProcDeclaration) d1);
+            }
+          }
 
-@Override
   public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
     ast.D1.visit(this, null);
     ast.D2.visit(this, null);
     return null;
   }
   
-@Override
   public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {
     ast.D1.visit(this, null);
     ast.D2.visit(this, null);
@@ -577,7 +619,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // Always returns null. Does not use the given object.
 
   public Object visitConstFormalParameter(ConstFormalParameter ast, Object o) {
-    ast.T = (TypeDenoter) ast.T.visit(this, null);
+    ast.T = (TypeDenoter) ast.T.visit(this, null); 
     idTable.enter(ast.I.spelling, ast);
     if (ast.duplicated)
       reporter.reportError ("duplicated formal parameter \"%\"",
@@ -901,10 +943,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
       } else if (binding instanceof VarFormalParameter) {
         ast.type = ((VarFormalParameter) binding).T;
         ast.variable = true;
-      }else if (binding instanceof VarDeclarationInit) {
-        ast.type = ((VarDeclarationInit) binding).T;
-        ast.variable = true;
-      }else
+      } else
         reporter.reportError ("\"%\" is not a const or var identifier",
                               ast.I.spelling, ast.I.position);
     return ast.type;
@@ -1132,7 +1171,11 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     public Object visitLoopCommandAST1(LoopCommandAST1 aThis, Object o) {
         aThis.WhileVar.visit(this, aThis);
         return null;
-//throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
+        aThis.WhileVar.visit(this, null);
+        return null;
     }
 
     @Override
@@ -1141,89 +1184,94 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         if(!eType.equals(StdEnvironment.integerType)){
             reporter.reportError("expected integer here","", aThis.position);
         }
-        /*System.out.println("entré aqui visitForFromCommand");
+        /*System.out.println("entrï¿½ aqui visitForFromCommand");
         idTable.openScope();
         //aThis.I.visit(this, null);
         aThis.E.visit(this, null);
         idTable.closeScope();*/
         return null;
-//throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//TypeDenoter iType = (TypeDenoter) aThis.I.visit(this, null);
+        if (! iType.equals(StdEnvironment.integerType))
+          reporter.reportError("Integer expression expected here", "", aThis.I.position);
+        TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
+        if (! eType.equals(StdEnvironment.integerType))
+          reporter.reportError("Integer expression expected here", "", aThis.E.position);
+        return null;
     }
 
     @Override
     public Object visitDoCommandAST(DoCommand aThis, Object o) {
-        System.out.println("entré aqui visitDoCommandAST");
-        aThis.C.visit(this, null);
-        return null;
-//throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Object visitForFromAST1(ForFromAST1 aThis, Object o) {
-        System.out.println("entré aqui visitForFromAST1");
-        idTable.openScope();
-        aThis.ForFrom.visit(this, null);
-        aThis.Do.visit(this, null);
-        aThis.E.visit(this, null);
-        aThis.I.visit(this, null);
-        idTable.closeScope();
-        return null;
-//throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Object visitLoopUntilDoAST(LoopUntilDoAST aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
+        aThis.UntilVar.visit(this, null);
+        return null;
     }
 
     @Override
     public Object visitUntilCommand(UntilCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    TypeDenoter eType = (TypeDenoter) aThis.I.visit(this, null);
+    if (! eType.equals(StdEnvironment.booleanType))
+      reporter.reportError("Boolean expression expected here", "", aThis.I.position);
+    aThis.C.visit(this, null);
+    return null;
+    
     }
 
     @Override
     public Object visitWhileEndCommand(WhileEndCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
+        if (! eType.equals(StdEnvironment.booleanType))
+          reporter.reportError("Boolean expression expected here", "", aThis.E.position);
+        return null;
     }
 
     @Override
     public Object visitLooopWhileEndCommand(LoopWhileEndAST aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        aThis.C.visit(this, null);
+        if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
+        aThis.WhileV.visit(this, null);
+        return null;
     }
 
     @Override
     public Object visitUntilEndCommand(UntilEndCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
+        if (! eType.equals(StdEnvironment.booleanType))
+          reporter.reportError("Boolean expression expected here", "", aThis.E.position);
+        return null;
     }
 
     @Override
     public Object visitLooopUntilEndCommand(LoopUntilEndAST aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        aThis.C.visit(this, null);
+        if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
+        aThis.UntilEnd.visit(this, null);
+        return null;
     }
 
     @Override
     public Object visitForFromWhile(LoopForFromWhile aThis, Object o) {
-        aThis.whileV.visit(this, null);
-        aThis.E.visit(this, null);
-        //aThis.I.visit(this, null);
-        aThis.ForFrom.visit(this, null);
-        return null;
-        /*TypeDenoter eType = (TypeDenoter) aThis.whileV.E.visit(this, null);
-        if(!eType.equals(StdEnvironment.booleanType))
-            reporter.reportError ("boolean expression expected here", "", eType.position);
-        aThis.whileV.C.visit(this, null);*/
-        
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Object visitForFromUntil(LoopForFromUntil aThis, Object o) {
-        TypeDenoter eType = (TypeDenoter) aThis.untilV.I.visit(this, null);
-        if(!eType.equals(StdEnvironment.booleanType))
-            reporter.reportError ("boolean expression expected here", "", eType.position);
-        aThis.untilV.C.visit(this, null);
-        return null;
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -1238,28 +1286,15 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     @Override
     public Object visitToCommandAST(ToCommand aThis, Object o) {
-        idTable.openScope();
-        aThis.E.visit(this, null);
-        idTable.closeScope();
-        //System.out.println("visitToCommandAST");
-        //TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
-        //System.out.println(eType);
-        return null;
-//throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     //Editado por Erick Madrigal
     @Override
     public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {
-    idTable.enter (ast.I.spelling, ast);
-    if (ast.duplicated)
-      reporter.reportError ("identifier \"%\" already declared",
-                            ast.I.spelling, ast.position);
-
-    return null;
-        //ast.I.visit(this,null);
-        //ast.E.visit(this,null);
-        //return null;
+        ast.I.visit(this,null);
+        ast.E.visit(this,null);
+        return null;
     }
 
     @Override
