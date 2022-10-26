@@ -249,7 +249,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   }
 
   public Object visitWhileCommand(WhileCommand ast, Object o) {
-    TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     if (! eType.equals(StdEnvironment.booleanType))
       reporter.reportError("Boolean expression expected here", "", ast.E.position);
     ast.C.visit(this, null);
@@ -1134,62 +1134,106 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     @Override
     public Object visitLoopCommandAST1(LoopCommandAST1 aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        aThis.I.visit(this, null);
+        aThis.WhileVar.visit(this, null);
+        return null;
     }
 
     @Override
     public Object visitForFromCommand(ForFromCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        TypeDenoter iType = (TypeDenoter) aThis.I.visit(this, null);
+        if (! iType.equals(StdEnvironment.integerType))
+          reporter.reportError("Integer expression expected here", "", aThis.I.position);
+        TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
+        if (! eType.equals(StdEnvironment.integerType))
+          reporter.reportError("Integer expression expected here", "", aThis.E.position);
+        return null;
     }
 
     @Override
     public Object visitDoCommandAST(DoCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        aThis.C.visit(this, null);
+        return null;
     }
 
     @Override
     public Object visitForFromAST1(ForFromAST1 aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        TypeDenoter iType = (TypeDenoter) aThis.I.visit(this, null);
+        if (! iType.equals(StdEnvironment.integerType))
+          reporter.reportError("Integer expression expected here", "", aThis.I.position);
+        aThis.ForFrom.visit(this, null);
+        aThis.E.visit(this, null);
+        aThis.Do.visit(this, null);
+        return null;
     }
 
     @Override
     public Object visitLoopUntilDoAST(LoopUntilDoAST aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        aThis.I.visit(this, null);
+        aThis.UntilVar.visit(this, null);
+        return null;
     }
 
     @Override
     public Object visitUntilCommand(UntilCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    TypeDenoter eType = (TypeDenoter) aThis.I.visit(this, null);
+    if (! eType.equals(StdEnvironment.booleanType))
+      reporter.reportError("Boolean expression expected here", "", aThis.I.position);
+    aThis.C.visit(this, null);
+    return null;
+    
     }
 
     @Override
     public Object visitWhileEndCommand(WhileEndCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
+        if (! eType.equals(StdEnvironment.booleanType))
+          reporter.reportError("Boolean expression expected here", "", aThis.E.position);
+        return null;
     }
 
     @Override
     public Object visitLooopWhileEndCommand(LoopWhileEndAST aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        aThis.C.visit(this, null);
+        aThis.I.visit(this, null);
+        return null;
     }
 
     @Override
     public Object visitUntilEndCommand(UntilEndCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
+        if (! eType.equals(StdEnvironment.booleanType))
+          reporter.reportError("Boolean expression expected here", "", aThis.E.position);
+        return null;
     }
 
     @Override
     public Object visitLooopUntilEndCommand(LoopUntilEndAST aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        aThis.C.visit(this, null);
+        aThis.I.visit(this, null);
+        return null;
     }
 
     @Override
     public Object visitForFromWhile(LoopForFromWhile aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        TypeDenoter iType = (TypeDenoter) aThis.I.visit(this, null);
+        if (! iType.equals(StdEnvironment.integerType))
+          reporter.reportError("Integer expression expected here", "", aThis.I.position);
+        aThis.ForFrom.visit(this, null);
+        aThis.E.visit(this, null);
+        aThis.whileV.visit(this, null);
+        return null;
     }
 
     @Override
     public Object visitForFromUntil(LoopForFromUntil aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        TypeDenoter iType = (TypeDenoter) aThis.I.visit(this, null);
+        if (! iType.equals(StdEnvironment.integerType))
+          reporter.reportError("Integer expression expected here", "", aThis.I.position);
+        aThis.ForFrom.visit(this, null);
+        aThis.E.visit(this, null);
+        aThis.untilV.visit(this, null);
+        return null;
     }
 
     @Override
@@ -1204,7 +1248,10 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     @Override
     public Object visitToCommandAST(ToCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
+        if (! eType.equals(StdEnvironment.booleanType))
+          reporter.reportError("Boolean expression expected here", "", aThis.E.position);
+        return null;
     }
 
     //Editado por Erick Madrigal
