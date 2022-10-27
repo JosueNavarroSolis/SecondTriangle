@@ -453,7 +453,6 @@ public final class Checker implements Visitor {
   // editado por Erick Madrigal
   public Object visitFuncDeclaration(FuncDeclaration ast, Object o) {
     ast.T = (TypeDenoter) ast.T.visit(this, null);
-    idTable.enter(ast.I.spelling, ast); // permits recursion
     if (ast.duplicated)
       reporter.reportError("identifier \"%\" already declared",
           ast.I.spelling, ast.position);
