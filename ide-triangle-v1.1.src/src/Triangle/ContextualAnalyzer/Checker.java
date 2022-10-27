@@ -1244,14 +1244,13 @@ public final class Checker implements Visitor {
         return null;
     }
 
-  @Override
-  public Object visitUntilCommand(UntilCommand aThis, Object o) {
-    TypeDenoter eType = (TypeDenoter) aThis.I.visit(this, null);
-    if (! eType.equals(StdEnvironment.booleanType))
-      reporter.reportError("Boolean expression expected here", "", aThis.I.position);
-    aThis.C.visit(this, null);
+    @Override
+    public Object visitUntilCommand(UntilCommand aThis, Object o) {
+        TypeDenoter eType = (TypeDenoter) aThis.I.visit(this, null);
+        if (!eType.equals(StdEnvironment.booleanType))
+            reporter.reportError("Boolean expression expected here", "", aThis.I.position);
+        aThis.C.visit(this, null);
     return null;
-    
     }
 
   @Override
@@ -1305,29 +1304,42 @@ public final class Checker implements Visitor {
     return null;
   }
 
-  @Override
-  public Object visitForFromUntil(LoopForFromUntil aThis, Object o) {
-    TypeDenoter eType = (TypeDenoter) aThis.untilV.I.visit(this, null);
-    if (!eType.equals(StdEnvironment.booleanType))
-      reporter.reportError("boolean expression expected here", "", eType.position);
-    aThis.untilV.C.visit(this, null);
-    return null;
-    // throw new UnsupportedOperationException("Not supported yet."); // Generated
-    // from
-    // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-  }
+    @Override
+    public Object visitForFromUntil(LoopForFromUntil aThis, Object o) {
+        aThis.ForFrom.visit(this, null);
+        aThis.E.visit(this, null);
+        idTable.openScope();
+        idTable.enter(aThis.ForFrom.I.spelling, aThis.ForFrom);
+        if(aThis.ForFrom.duplicated)
+            reporter.reportError("identifier \"%\" already declared",
+                            aThis.ForFrom.I.spelling, aThis.ForFrom.position);
+        aThis.untilV.visit(this, null);
+        idTable.closeScope();
+       return null;
+    }
 
-  @Override
-  public Object visitForInCommand(ForInCommand aThis, Object o) {
-    throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-  }
+    @Override
+    public Object visitForInCommand(ForInCommand aThis, Object o) {
+        TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
+        if (! (eType instanceof ArrayTypeDenoter))
+            reporter.reportError ("array expected here", "", aThis.E.position);
+        
+        return null;
+    }
 
-  @Override
-  public Object visitForInDoCommand(ForInDo aThis, Object o) {
-    throw new UnsupportedOperationException("Not supported yet."); // Generated from
-                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-  }
+    @Override
+    public Object visitForInDoCommand(ForInDo aThis, Object o) {
+        aThis.forAST.visit(this, null);
+        idTable.openScope();
+        idTable.enter(aThis.I.spelling, aThis.forAST);
+        if(aThis.forAST.duplicated)
+            reporter.reportError("identifier \"%\" already declared",
+                            aThis.forAST.I.spelling, aThis.forAST.position);
+        idTable.closeScope();
+        aThis.C.visit(this, null);
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 
   // Editado por Erick Madrigal
