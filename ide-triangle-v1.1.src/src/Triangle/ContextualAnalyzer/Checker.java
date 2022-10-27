@@ -264,8 +264,8 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
   public Object visitWhileCommand(WhileCommand ast, Object o) {
      TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
-    if (! eType.equals(StdEnvironment.booleanType))
-      reporter.reportError("Boolean expression expected here", "", ast.E.position);
+    if (! eType.equals(StdEnvironment.integerType))
+      reporter.reportError("Integer expression expected here", "", ast.E.position);
     ast.C.visit(this, null);
     return null;
   }
@@ -1157,9 +1157,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     @Override
     public Object visitForFromCommand(ForFromCommand aThis, Object o) {
-        TypeDenoter iType = (TypeDenoter) aThis.I.visit(this, null);
-        if (! iType.equals(StdEnvironment.integerType))
-          reporter.reportError("Integer expression expected here", "", aThis.I.position);
         TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
         if (! eType.equals(StdEnvironment.integerType))
           reporter.reportError("Integer expression expected here", "", aThis.E.position);
@@ -1168,15 +1165,16 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     @Override
     public Object visitDoCommandAST(DoCommand aThis, Object o) {
-        aThis.C.visit(this, null);
+         aThis.C.visit(this, null);
         return null;
+
     }
 
     @Override
     public Object visitForFromAST1(ForFromAST1 aThis, Object o) {
-        TypeDenoter iType = (TypeDenoter) aThis.I.visit(this, null);
-        if (! iType.equals(StdEnvironment.integerType))
-          reporter.reportError("Integer expression expected here", "", aThis.I.position);
+        if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
         aThis.ForFrom.visit(this, null);
         aThis.E.visit(this, null);
         aThis.Do.visit(this, null);
@@ -1240,9 +1238,9 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     @Override
     public Object visitForFromWhile(LoopForFromWhile aThis, Object o) {
-        TypeDenoter iType = (TypeDenoter) aThis.I.visit(this, null);
-        if (! iType.equals(StdEnvironment.integerType))
-          reporter.reportError("Integer expression expected here", "", aThis.I.position);
+        if(aThis.I != null){
+            aThis.I.visit(this, null);
+        }
         aThis.ForFrom.visit(this, null);
         aThis.E.visit(this, null);
         aThis.whileV.visit(this, null);
@@ -1273,8 +1271,8 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     @Override
     public Object visitToCommandAST(ToCommand aThis, Object o) {
          TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
-        if (! eType.equals(StdEnvironment.booleanType))
-          reporter.reportError("Boolean expression expected here", "", aThis.E.position);
+        if (! eType.equals(StdEnvironment.integerType))
+          reporter.reportError("IntegerType expression expected here", "", aThis.E.position);
         return null;
     }
 
