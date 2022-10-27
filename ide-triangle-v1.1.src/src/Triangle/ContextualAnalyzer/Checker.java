@@ -484,8 +484,13 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   
 @Override
   public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {
+    //idTable.stackPush(0);
+    idTable.publicPush();
     ast.D1.visit(this, null);
+    //idTable.stackPush(1);
+    idTable.privatePush();
     ast.D2.visit(this, null);
+    idTable.closeStack();
     return null;
   }
 
