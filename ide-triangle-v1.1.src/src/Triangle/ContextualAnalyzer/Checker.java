@@ -479,14 +479,6 @@ public final class Checker implements Visitor {
     return null;
   }
 
-  @Override
-  public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
-    ast.D1.visit(this, null);
-    ast.D2.visit(this, null);
-    return null;
-  }
-
-  @Override
   // editado por Erick Madrigal
   @Override
   public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
@@ -1318,8 +1310,6 @@ public final class Checker implements Visitor {
                                                                    // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
   }
 
-  @Override
-  public Object visitToCommandAST(ToCommand aThis, Object o) {
 
   // Editado por Erick Madrigal
   // @Override
@@ -1332,19 +1322,11 @@ public final class Checker implements Visitor {
           ast.I.spelling, ast.position);
     return null;
   }
-
+  
+  @Override
+  public Object visitToCommandAST(ToCommand aThis, Object o) {
   idTable.openScope();aThis.E.visit(this,null);idTable.closeScope();return null;
 
-  }
-
-  // Editado por Erick Madrigal
-  @Override
-  public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {
-    idTable.enter(ast.I.spelling, ast);
-    if (ast.duplicated)
-      reporter.reportError("identifier \"%\" already declared",
-          ast.I.spelling, ast.position);
-    return null;
   }
 
   @Override
