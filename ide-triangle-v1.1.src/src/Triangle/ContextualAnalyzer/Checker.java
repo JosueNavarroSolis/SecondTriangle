@@ -705,6 +705,8 @@ public final class Checker implements Visitor {
     if (!(fp instanceof ConstFormalParameter))
       reporter.reportError("const actual parameter not expected here", "",
           ast.position);
+    else if (eType instanceof ArrayTypeDenoter)
+      return null;
     else if (!eType.equals(((ConstFormalParameter) fp).T))
       reporter.reportError("wrong type for const actual parameter", "",
           ast.E.position);
@@ -962,6 +964,9 @@ public final class Checker implements Visitor {
       ast.variable = true;
     } else if (binding instanceof ForFromCommand) {
       ast.type = ((ForFromCommand) binding).E.type;
+      ast.variable = true; // Se agrega como una variable
+    }else if (binding instanceof ForInCommand) {
+      ast.type = ((ForInCommand) binding).E.type;
       ast.variable = true; // Se agrega como una variable
     } else
       reporter.reportError("\"%\" is not a const or var identifier",
@@ -1331,12 +1336,13 @@ public final class Checker implements Visitor {
     public Object visitForInDoCommand(ForInDo aThis, Object o) {
         aThis.forAST.visit(this, null);
         idTable.openScope();
-        idTable.enter(aThis.I.spelling, aThis.forAST);
+        idTable.enter(aThis.forAST.I.spelling, aThis.forAST);
         if(aThis.forAST.duplicated)
             reporter.reportError("identifier \"%\" already declared",
                             aThis.forAST.I.spelling, aThis.forAST.position);
-        idTable.closeScope();
         aThis.C.visit(this, null);
+        idTable.closeScope();
+        
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
