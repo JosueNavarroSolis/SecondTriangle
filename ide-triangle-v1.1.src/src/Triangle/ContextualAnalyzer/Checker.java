@@ -508,9 +508,15 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     } 
   }
    
+@Override
   public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {
+    //idTable.stackPush(0);
+    idTable.publicPush();
     ast.D1.visit(this, null);
+    //idTable.stackPush(1);
+    idTable.privatePush();
     ast.D2.visit(this, null);
+    idTable.closeStack();
     return null;
   }
 
@@ -901,12 +907,6 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
       } else if (binding instanceof VarDeclarationInit) {
         ast.type = ((VarDeclarationInit) binding).T;
         ast.variable = true;
-      /*} else if (binding instanceof ProcDeclaration) {
-        //ast.type = ((ProcDeclaration) binding).T;
-        ast.variable = false;
-      } else if (binding instanceof FuncDeclaration) {
-        ast.type = ((FuncDeclaration) binding).T;
-        ast.variable = false;*/
       } else
         reporter.reportError ("\"%\" is not a const or var identifier",
                               ast.I.spelling, ast.I.position);
