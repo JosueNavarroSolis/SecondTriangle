@@ -463,7 +463,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
                             ast.I.spelling, ast.position);
     return null;
   }
-  //editado
+  //editado por Erick Madrigal
   public Object visitFuncDeclaration(FuncDeclaration ast, Object o) {
     ast.T = (TypeDenoter) ast.T.visit(this, null);
     //idTable.enter (ast.I.spelling, ast); // permits recursion
@@ -479,9 +479,8 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
                             ast.I.spelling, ast.E.position);
     return null;
   }
-  //editado
+  //editado por Erick Madrigal 
   public Object visitProcDeclaration(ProcDeclaration ast, Object o) {
-    //idTable.enter (ast.I.spelling, ast); // permits recursion
     if (ast.duplicated)
       reporter.reportError ("identifier \"%\" already declared",
                             ast.I.spelling, ast.position);
@@ -530,8 +529,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
               }
             }
           }  
-          //ast.D1.visit(this, null);
-          //ast.D2.visit(this, null);
+          
           d1.visit(this, null);
           d2.visit(this, null);
           return null;
@@ -548,8 +546,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   //createdd by Erick Madrigal
   public void addFunc (FuncDeclaration ast){
     ast.T = (TypeDenoter) ast.T.visit(this,null);
-    idTable.enter(ast.I.spelling, ast);
-    
+    idTable.enter(ast.I.spelling, ast);    
     if(!ast.duplicated){
         idTable.openScope();
         ast.FPS.visit(this,null);
@@ -562,18 +559,17 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 }
 
 //createdd by Erick Madrigal
-public void addProc(ProcDeclaration ast){
-  
-idTable.enter(ast.I.spelling, ast);
-if(!ast.duplicated){
-    idTable.openScope();
-    ast.FPS.visit(this,null);
-    idTable.closeScope();
-    ast.V=true;            
-}else{
-    reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);        
-} 
-}
+  public void addProc(ProcDeclaration ast){  
+    idTable.enter(ast.I.spelling, ast);
+    if(!ast.duplicated){
+        idTable.openScope();
+        ast.FPS.visit(this,null);
+        idTable.closeScope();
+        ast.V=true;            
+    }else{
+        reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);        
+    } 
+  }
           
   public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {
     //idTable.stackPush(0);
@@ -1354,14 +1350,6 @@ if(!ast.duplicated){
 
     //Editado por Erick Madrigal
     //@Override
-    //public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {
-      //  ast.I.visit(this,null);
-       // ast.E.visit(this,null);
-        //return null;
-        //ast.I.visit(this,null);
-        //ast.E.visit(this,null);
-        //return null;
-
     public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {               
         TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
         ast.T = eType;
