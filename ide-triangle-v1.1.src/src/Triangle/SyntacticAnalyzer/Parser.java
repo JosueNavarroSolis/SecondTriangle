@@ -340,23 +340,26 @@ public class Parser {
       SourcePosition position = new SourcePosition();
       start(position);
       CaseCommand cAST1 = parseCaseCommand();
-      if(currentToken.kind == Token.WHEN){
-        MultipleCase mCase = new MultipleCase(cAST1, position);
-        while(currentToken.kind == Token.WHEN){
-            CaseCommand cAST2 = parseCaseCommand();
-            finish(position);
-            mCase = new MultipleCase(mCase, cAST2,position);
-        }
-        commandAST = new CasesCommand(mCase, position);
-      }
-      else if(currentToken.kind == Token.END || currentToken.kind == Token.ELSE){
-          finish(position);
-          SingleCase sCase = new SingleCase(cAST1, position);
-          commandAST = new CasesCommand(sCase, position);
-      }
-      else{
-          commandAST = null;
-          syntacticError("when or end expected here", "");
+      switch (currentToken.kind) {
+          case Token.WHEN:
+              MultipleCase mCase = new MultipleCase(cAST1, position);
+              while(currentToken.kind == Token.WHEN){
+                  
+                  CaseCommand cAST2 = parseCaseCommand();
+                  finish(position);
+                  mCase = new MultipleCase(mCase, cAST2,position);
+              }     commandAST = new CasesCommand(mCase, position);
+              break;
+          case Token.END:
+          case Token.ELSE:
+              finish(position);
+              SingleCase sCase = new SingleCase(cAST1, position);
+              commandAST = new CasesCommand(sCase, position);
+              break;
+          default:
+              commandAST = null;
+              syntacticError("when or end expected here", "");
+              break;
       }
       return commandAST;
   }
@@ -366,7 +369,7 @@ public class Parser {
 
   Identifier parseIdentifier() throws SyntaxError {
     Identifier I = null;
-
+    
     if (currentToken.kind == Token.IDENTIFIER) {
       previousTokenPosition = currentToken.position;
       String spelling = currentToken.spelling;
@@ -663,6 +666,7 @@ public class Parser {
             case Token.FOR: {
                 acceptIt();
                 // Agarrar el identificador
+                
                 Identifier iAST2 = parseIdentifier();
                 
                 switch(currentToken.kind){
@@ -670,8 +674,8 @@ public class Parser {
                         
                         acceptIt();
                         // Se obtiene el primer arbol ("for" Identifier "from" Expression)
+                        System.out.println("forfromcommand");
                         ForFromCommand ForFromAST = ParseForFromCommand(commandPos, iAST2);
-                        
                         // Aceptar el token to
                         accept(Token.TO);
                         
@@ -916,6 +920,8 @@ public class Parser {
     while (currentToken.kind == Token.OPERATOR) {
       Operator opAST = parseOperator();
       Expression e2AST = parsePrimaryExpression();
+        System.out.println("expr1: "+expressionAST);
+        System.out.println("expr2: "+e2AST);
       expressionAST = new BinaryExpression (expressionAST, opAST, e2AST,
         expressionPos);
     }
@@ -1598,7 +1604,6 @@ public class Parser {
     
     // Autor : Valeria Chinchilla
     private WhileCommand whileDo(SourcePosition commandPos) throws SyntaxError{
-        
         start(commandPos);
         WhileCommand commandAST = null;
         
@@ -1619,6 +1624,7 @@ public class Parser {
             finish(commandPos);
             commandAST = new WhileCommand (eAST, DoAST, commandPos);
         }
+        
         
         // Error
         else{

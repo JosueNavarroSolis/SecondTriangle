@@ -23,6 +23,7 @@ public class MultipleCaseRange extends CaseRangeCommand{
         CRCMCR2 = null;
     }
     
+    @Override
     public Object visit(Visitor v, Object o) {
         return v.visitMultipleCaseRange(this, o);
     }

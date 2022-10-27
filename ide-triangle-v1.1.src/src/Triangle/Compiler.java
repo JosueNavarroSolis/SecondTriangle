@@ -89,7 +89,7 @@ public class Compiler {
             //    drawer.draw(theAST);
             //}
             
-            System.out.println ("Contextual Analysis ...");
+            System.out.println ("Contextual Analysis ... asdasdasd");
             checker.check(theAST);				// 2nd pass
             if (showingAST) {
                 drawer.draw(theAST);
@@ -103,7 +103,7 @@ public class Compiler {
 	boolean successful = (reporter.numErrors == 0);
         if (successful) {
             encoder.saveObjectProgram(objectName);
-            System.out.println("Compilation was successful.");
+            System.out.println("Compilation was successful. sdaSD");
         } else {
             System.out.println("Compilation was unsuccessful.");
         }

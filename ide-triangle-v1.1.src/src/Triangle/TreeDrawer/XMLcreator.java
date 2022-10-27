@@ -50,6 +50,7 @@ import Triangle.AbstractSyntaxTrees.LetCommand;
 import Triangle.AbstractSyntaxTrees.LetExpression;
 import Triangle.AbstractSyntaxTrees.LocalDeclaration;
 import Triangle.AbstractSyntaxTrees.LoopCommandAST1;
+import Triangle.AbstractSyntaxTrees.LoopDeclaration;
 import Triangle.AbstractSyntaxTrees.LoopForFromUntil;
 import Triangle.AbstractSyntaxTrees.LoopForFromWhile;
 import Triangle.AbstractSyntaxTrees.LoopUntilDoAST;
@@ -1169,6 +1170,11 @@ public class XMLcreator implements Visitor {
         nuevaLinea("<Return>");
         nuevaLinea("</Return>");
         return (null);
+    }
+
+    @Override
+    public Object visitLoopDeclaration(LoopDeclaration aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

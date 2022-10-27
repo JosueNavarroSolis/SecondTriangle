@@ -153,4 +153,6 @@ public interface Visitor {
 
     public Object visitReturnCommand(ReturnCommand aThis, Object o);
 
+    public Object visitLoopDeclaration(LoopDeclaration aThis, Object o);
+
 }

@@ -63,6 +63,7 @@ import Triangle.AbstractSyntaxTrees.LetCommand;
 import Triangle.AbstractSyntaxTrees.LetExpression;
 import Triangle.AbstractSyntaxTrees.LocalDeclaration;
 import Triangle.AbstractSyntaxTrees.LoopCommandAST1;
+import Triangle.AbstractSyntaxTrees.LoopDeclaration;
 import Triangle.AbstractSyntaxTrees.LoopForFromUntil;
 import Triangle.AbstractSyntaxTrees.LoopForFromWhile;
 import Triangle.AbstractSyntaxTrees.LoopUntilDoAST;
@@ -846,6 +847,11 @@ public class LayoutVisitor implements Visitor {
     @Override
     public Object visitReturnCommand(ReturnCommand aThis, Object o) {
         return(layoutNullary("Return Command"));
+    }
+
+    @Override
+    public Object visitLoopDeclaration(LoopDeclaration aThis, Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

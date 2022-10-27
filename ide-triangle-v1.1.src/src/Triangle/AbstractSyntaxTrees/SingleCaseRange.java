@@ -16,6 +16,7 @@ public class SingleCaseRange extends CaseRangeCommand{
         CRCSCR = cAST;
     }
     
+    @Override
     public Object visit(Visitor v, Object o) {
         return v.visitSingleCaseRange(this, o);
     }
