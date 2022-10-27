@@ -66,6 +66,7 @@ import Triangle.AbstractSyntaxTrees.LetCommand;
 import Triangle.AbstractSyntaxTrees.LetExpression;
 import Triangle.AbstractSyntaxTrees.LocalDeclaration;
 import Triangle.AbstractSyntaxTrees.LoopCommandAST1;
+import Triangle.AbstractSyntaxTrees.LoopDeclaration;
 import Triangle.AbstractSyntaxTrees.LoopForFromUntil;
 import Triangle.AbstractSyntaxTrees.LoopForFromWhile;
 import Triangle.AbstractSyntaxTrees.LoopUntilDoAST;
@@ -128,100 +129,129 @@ public final class Checker implements Visitor {
   // Commands
 
   // Always returns null. Does not use the given object.
-    
-  //Se dejo declarado el CaseLiteralCommand para los siguientes proyectos.
-    
-  //Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
-public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) {
-    return null;
-  }
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
-public Object visitCaseRangeCommand(CaseRangeCommand ast, Object o) {
+
+  // Se dejo declarado el CaseLiteralCommand para los siguientes proyectos.
+
+  // Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+  @Override
+  public Object visitCaseLiteralCommand(CaseLiteralCommand ast, Object o) {
+    System.out.println("Entre y no se como!");
     return null;
   }
 
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
-public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj){
+  // Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+  @Override
+  public Object visitCaseRangeCommand(CaseRangeCommand ast, Object o) {
+    System.out.println("Entre y no se como!");
     return null;
-}
+  }
 
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
-public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
+  // Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+  @Override
+  public Object visitToCommandLiteralAST(ToCommandLiteral ast, Object obj) {
+    System.out.println("Entre commandLiteralAST!");
     return null;
-}
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
-public Object visitCaseCommand(CaseCommand ast, Object obj){
-    return null;
-}
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
-public Object visitCasesCommand(CasesCommand ast, Object obj){
-    return null;
-}
+  }
 
-public Object visitSelectCommand(SelectCommand ast, Object obj){
+  // Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+  @Override
+  public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj) {
+    System.out.println("visitBarCommandCaseRange");
+    return null;
+  }
+
+  // Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+  @Override
+  public Object visitCaseCommand(CaseCommand ast, Object obj) {
+    System.out.println("Entre CaseCommand");
+    return null;
+  }
+
+  // Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+  @Override
+  public Object visitCasesCommand(CasesCommand ast, Object obj) {
+    System.out.println("visitCasesCommand");
+    return null;
+  }
+
+  @Override
+  public Object visitSelectCommand(SelectCommand ast, Object obj) {
+
     TypeDenoter eType = (TypeDenoter) ast.expression.visit(this, null);
     boolean boolError = false;
     char tipo;
-    if (!eType.equals(StdEnvironment.integerType)){
-        tipo = 'i';
-        if(!eType.equals(StdEnvironment.charType)){
-            tipo = 'c';
-            boolError = true;
-        }
+    if (!eType.equals(StdEnvironment.integerType)) {
+      tipo = 'i';
+      if (!eType.equals(StdEnvironment.charType)) {
+        tipo = 'c';
+        boolError = true;
+      }
     }
-        if(!eType.equals(StdEnvironment.charType))
-            boolError = true;
-    if(boolError)
-         reporter.reportError("Integer or Char expression expected here!","",ast.expression.position);
+    if (boolError)
+      reporter.reportError("Integer or Char expression expected here!", "", ast.expression.position);
     return null;
-}
+  }
 
-//Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
-public Object visitCaseLiterals(CaseLiterals ast, Object obj){
+  // Autores: Kevin Rodriguez, Hilary Castro, Gabriel Fallas
+  @Override
+  public Object visitCaseLiterals(CaseLiterals ast, Object obj) {
+    System.out.println("Entre Case literals");
     return null;
-}
+  }
 
-public Object visitSingleCaseRange(SingleCaseRange ast, Object obj){
+  @Override
+  public Object visitSingleCaseRange(SingleCaseRange ast, Object obj) {
+    System.out.println("Entre Case visitSingleCaseRange");
     return null;
-}
+  }
 
-public Object visitSingleThen(SingleThen ast, Object obj){
+  @Override
+  public Object visitSingleThen(SingleThen ast, Object obj) {
+    System.out.println("Entre Case visitSingleThen");
     return null;
-}
+  }
 
-public Object visitSequentialCases(SequentialCases ast, Object obj){
+  @Override
+  public Object visitSequentialCases(SequentialCases ast, Object obj) {
+    System.out.println("Entre Case visitSequentialCases");
     return null;
-}
+  }
 
-public Object visitSingleCase(SingleCase ast, Object obj){
+  @Override
+  public Object visitSingleCase(SingleCase ast, Object obj) {
+    System.out.println("Entre Case visitSingleCase");
     return null;
-}
+  }
 
-public Object visitMultipleCaseRange(MultipleCaseRange ast, Object obj){
+  @Override
+  public Object visitMultipleCaseRange(MultipleCaseRange ast, Object obj) {
+    System.out.println("Entre Case visitMultipleCaseRange");
     return null;
-}
+  }
 
-public Object visitMultipleThen(MultipleThen ast, Object obj){
+  @Override
+  public Object visitMultipleThen(MultipleThen ast, Object obj) {
+    System.out.println("Entre Case visitMultipleThen");
     return null;
-}
+  }
 
-public Object visitMultipleCase(MultipleCase ast, Object obj){
+  public Object visitMultipleCase(MultipleCase ast, Object obj) {
+    System.out.println("Entre Case visitMultipleCase");
     return null;
-}
+  }
 
+  @Override
   public Object visitAssignCommand(AssignCommand ast, Object o) {
     TypeDenoter vType = (TypeDenoter) ast.V.visit(this, null);
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     if (!ast.V.variable)
-      reporter.reportError ("LHS of assignment is not a variable", "", ast.V.position);
-    if (! eType.equals(vType))
-      reporter.reportError ("assignment incompatibilty", "", ast.position);
+      reporter.reportError("LHS of assignment is not a variable", "", ast.V.position);
+    if (!eType.equals(vType))
+      reporter.reportError("assignment incompatibilty", "", ast.position);
     return null;
   }
 
-
   public Object visitCallCommand(CallCommand ast, Object o) {
-
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null)
       reportUndeclared(ast.I);
@@ -231,7 +261,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
       ast.APS.visit(this, ((ProcFormalParameter) binding).FPS);
     } else
       reporter.reportError("\"%\" is not a procedure identifier",
-                           ast.I.spelling, ast.I.position);
+          ast.I.spelling, ast.I.position);
     return null;
   }
 
@@ -241,13 +271,14 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
   public Object visitIfCommand(IfCommand ast, Object o) {
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
-    if (! eType.equals(StdEnvironment.booleanType))
+    if (!eType.equals(StdEnvironment.booleanType))
       reporter.reportError("Boolean expression expected here", "", ast.E.position);
     ast.C1.visit(this, null);
     ast.C2.visit(this, null);
     return null;
   }
 
+  @Override
   public Object visitLetCommand(LetCommand ast, Object o) {
     idTable.openScope();
     ast.D.visit(this, null);
@@ -262,11 +293,15 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     return null;
   }
 
+  @Override
   public Object visitWhileCommand(WhileCommand ast, Object o) {
-     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
-    if (! eType.equals(StdEnvironment.integerType))
+
+    TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+    if (!eType.equals(StdEnvironment.integerType))
       reporter.reportError("Integer expression expected here", "", ast.E.position);
+
     ast.C.visit(this, null);
+
     return null;
   }
 
@@ -278,13 +313,13 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   public Object visitArrayExpression(ArrayExpression ast, Object o) {
     TypeDenoter elemType = (TypeDenoter) ast.AA.visit(this, null);
     IntegerLiteral il = new IntegerLiteral(new Integer(ast.AA.elemCount).toString(),
-                                           ast.position);
+        ast.position);
     ast.type = new ArrayTypeDenoter(il, elemType, ast.position);
     return ast.type;
   }
 
+  @Override
   public Object visitBinaryExpression(BinaryExpression ast, Object o) {
-
     TypeDenoter e1Type = (TypeDenoter) ast.E1.visit(this, null);
     TypeDenoter e2Type = (TypeDenoter) ast.E2.visit(this, null);
     Declaration binding = (Declaration) ast.O.visit(this, null);
@@ -292,26 +327,30 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     if (binding == null)
       reportUndeclared(ast.O);
     else {
-      if (! (binding instanceof BinaryOperatorDeclaration))
-        reporter.reportError ("\"%\" is not a binary operator",
-                              ast.O.spelling, ast.O.position);
+      if (!(binding instanceof BinaryOperatorDeclaration))
+        reporter.reportError("\"%\" is not a binary operator",
+            ast.O.spelling, ast.O.position);
       BinaryOperatorDeclaration bbinding = (BinaryOperatorDeclaration) binding;
-      if (bbinding.ARG1 == StdEnvironment.anyType) {
+
+      if (bbinding.ARG1 == StdEnvironment.anyType) { // StdEnvironment.integerType
         // this operator must be "=" or "\="
-        if (! e1Type.equals(e2Type))
-          reporter.reportError ("incompatible argument types for \"%\"",
-                                ast.O.spelling, ast.position);
-      } else if (! e1Type.equals(bbinding.ARG1))
-          reporter.reportError ("wrong argument type for \"%\"",
-                                ast.O.spelling, ast.E1.position);
-      else if (! e2Type.equals(bbinding.ARG2))
-          reporter.reportError ("wrong argument type for \"%\"",
-                                ast.O.spelling, ast.E2.position);
+        if (!e1Type.equals(e2Type)) {
+          reporter.reportError("incompatible argument types for \"%\"",
+              ast.O.spelling, ast.position);
+
+        }
+      } else if (!e1Type.equals(bbinding.ARG1))
+        reporter.reportError("wrong argument type for \"%\"",
+            ast.O.spelling, ast.E1.position);
+      else if (!e2Type.equals(bbinding.ARG2))
+        reporter.reportError("wrong argument type for \"%\"",
+            ast.O.spelling, ast.E2.position);
       ast.type = bbinding.RES;
     }
     return ast.type;
   }
 
+  @Override
   public Object visitCallExpression(CallExpression ast, Object o) {
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null) {
@@ -325,7 +364,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
       ast.type = ((FuncFormalParameter) binding).T;
     } else
       reporter.reportError("\"%\" is not a function identifier",
-                           ast.I.spelling, ast.I.position);
+          ast.I.spelling, ast.I.position);
     return ast.type;
   }
 
@@ -341,13 +380,13 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
   public Object visitIfExpression(IfExpression ast, Object o) {
     TypeDenoter e1Type = (TypeDenoter) ast.E1.visit(this, null);
-    if (! e1Type.equals(StdEnvironment.booleanType))
-      reporter.reportError ("Boolean expression expected here", "",
-                            ast.E1.position);
+    if (!e1Type.equals(StdEnvironment.booleanType))
+      reporter.reportError("Boolean expression expected here", "",
+          ast.E1.position);
     TypeDenoter e2Type = (TypeDenoter) ast.E2.visit(this, null);
     TypeDenoter e3Type = (TypeDenoter) ast.E3.visit(this, null);
-    if (! e2Type.equals(e3Type))
-      reporter.reportError ("incompatible limbs in if-expression", "", ast.position);
+    if (!e2Type.equals(e3Type))
+      reporter.reportError("incompatible limbs in if-expression", "", ast.position);
     ast.type = e2Type;
     return ast.type;
   }
@@ -372,20 +411,19 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   }
 
   public Object visitUnaryExpression(UnaryExpression ast, Object o) {
-
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     Declaration binding = (Declaration) ast.O.visit(this, null);
     if (binding == null) {
       reportUndeclared(ast.O);
       ast.type = StdEnvironment.errorType;
-    } else if (! (binding instanceof UnaryOperatorDeclaration))
-        reporter.reportError ("\"%\" is not a unary operator",
-                              ast.O.spelling, ast.O.position);
+    } else if (!(binding instanceof UnaryOperatorDeclaration))
+      reporter.reportError("\"%\" is not a unary operator",
+          ast.O.spelling, ast.O.position);
     else {
       UnaryOperatorDeclaration ubinding = (UnaryOperatorDeclaration) binding;
-      if (! eType.equals(ubinding.ARG))
-        reporter.reportError ("wrong argument type for \"%\"",
-                              ast.O.spelling, ast.O.position);
+      if (!eType.equals(ubinding.ARG))
+        reporter.reportError("wrong argument type for \"%\"",
+            ast.O.spelling, ast.O.position);
       ast.type = ubinding.RES;
     }
     return ast.type;
@@ -407,133 +445,64 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     idTable.enter(ast.I.spelling, ast);
     if (ast.duplicated)
-      reporter.reportError ("identifier \"%\" already declared",
-                            ast.I.spelling, ast.position);
+      reporter.reportError("identifier \"%\" already declared",
+          ast.I.spelling, ast.position);
     return null;
   }
-  //editado
+
   public Object visitFuncDeclaration(FuncDeclaration ast, Object o) {
     ast.T = (TypeDenoter) ast.T.visit(this, null);
-    //idTable.enter (ast.I.spelling, ast); // permits recursion
+    idTable.enter(ast.I.spelling, ast); // permits recursion
     if (ast.duplicated)
-      reporter.reportError ("identifier \"%\" already declared",
-                            ast.I.spelling, ast.position);
+      reporter.reportError("identifier \"%\" already declared",
+          ast.I.spelling, ast.position);
     idTable.openScope();
     ast.FPS.visit(this, null);
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     idTable.closeScope();
-    if (! ast.T.equals(eType))
-      reporter.reportError ("body of function \"%\" has wrong type",
-                            ast.I.spelling, ast.E.position);
+    if (!ast.T.equals(eType))
+      reporter.reportError("body of function \"%\" has wrong type",
+          ast.I.spelling, ast.E.position);
     return null;
   }
-  //editado
+
   public Object visitProcDeclaration(ProcDeclaration ast, Object o) {
-    //idTable.enter (ast.I.spelling, ast); // permits recursion
+    idTable.enter(ast.I.spelling, ast); // permits recursion
     if (ast.duplicated)
-      reporter.reportError ("identifier \"%\" already declared",
-                            ast.I.spelling, ast.position);
+      reporter.reportError("identifier \"%\" already declared",
+          ast.I.spelling, ast.position);
     idTable.openScope();
     ast.FPS.visit(this, null);
     ast.C.visit(this, null);
     idTable.closeScope();
     return null;
   }
-  //editado por Erick Madrigal
+
   @Override
   public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
-    Declaration d1 = ast.D1;
-    Declaration d2 = ast.D2;
-    try{
-        if( d2 instanceof FuncDeclaration && ((FuncDeclaration) d2).V){
-            return null;
-        }
-        if( d2 instanceof ProcDeclaration && ((ProcDeclaration) d2).V){
-            return null;
-        }
-        if (d1 instanceof SequentialDeclaration){
-            if (d2 instanceof ProcDeclaration){
-                addProc((ProcDeclaration) d2);
-                d1.visit(this,null); 
-            } else {
-                if (d2 instanceof FuncDeclaration){
-                    addFunc((FuncDeclaration) d2);
-                    d1.visit(this,null);
-                }
-            }            
-        } else{
-          if (d1 instanceof FuncDeclaration) {
-            addFunc((FuncDeclaration) d1);
-          } else {
-            if (d1 instanceof ProcDeclaration) {
-              addProc((ProcDeclaration) d1);
-            }
-          }
-
-          if (d2 instanceof FuncDeclaration) {
-            addFunc((FuncDeclaration) d2);
-          } else {
-            if (d2 instanceof ProcDeclaration) {          
-              addProc((ProcDeclaration) d2);
-            }
-          }
-        }  
-        //ast.D1.visit(this, null);
-        //ast.D2.visit(this, null);
-        d1.visit(this, null);
-        d2.visit(this, null);
-        return null;
-
-    }catch(Exception e){
-        d1.visit(this, null);
-        d2.visit(this, null);
-        return null;
-    }
-    
-  }
-  
-  //createdd by Erick Madrigal
-  public void addFunc (FuncDeclaration ast){
-        ast.T = (TypeDenoter) ast.T.visit(this,null);
-        idTable.enter(ast.I.spelling, ast);
-        
-        if(!ast.duplicated){
-            idTable.openScope();
-            ast.FPS.visit(this,null);
-            idTable.closeScope();
-            ast.V=true;         
-        }else{
-            reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);        
-        } 
-        
-  }
-  
-  //createdd by Erick Madrigal
-  public void addProc(ProcDeclaration ast){
-      
-    idTable.enter(ast.I.spelling, ast);
-    if(!ast.duplicated){
-        idTable.openScope();
-        ast.FPS.visit(this,null);
-        idTable.closeScope();
-        ast.V=true;            
-    }else{
-        reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);        
-    } 
-  }
-   
-  public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {
     ast.D1.visit(this, null);
     ast.D2.visit(this, null);
     return null;
   }
 
+  @Override
+  public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {
+    // idTable.stackPush(0);
+    idTable.publicPush();
+    ast.D1.visit(this, null);
+    // idTable.stackPush(1);
+    idTable.privatePush();
+    ast.D2.visit(this, null);
+    idTable.closeStack();
+    return null;
+  }
+
   public Object visitTypeDeclaration(TypeDeclaration ast, Object o) {
     ast.T = (TypeDenoter) ast.T.visit(this, null);
-    idTable.enter (ast.I.spelling, ast);
+    idTable.enter(ast.I.spelling, ast);
     if (ast.duplicated)
-      reporter.reportError ("identifier \"%\" already declared",
-                            ast.I.spelling, ast.position);
+      reporter.reportError("identifier \"%\" already declared",
+          ast.I.spelling, ast.position);
     return null;
   }
 
@@ -543,10 +512,10 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
   public Object visitVarDeclaration(VarDeclaration ast, Object o) {
     ast.T = (TypeDenoter) ast.T.visit(this, null);
-    idTable.enter (ast.I.spelling, ast);
+    idTable.enter(ast.I.spelling, ast);
     if (ast.duplicated)
-      reporter.reportError ("identifier \"%\" already declared",
-                            ast.I.spelling, ast.position);
+      reporter.reportError("identifier \"%\" already declared",
+          ast.I.spelling, ast.position);
 
     return null;
   }
@@ -560,8 +529,8 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     TypeDenoter elemType = (TypeDenoter) ast.AA.visit(this, null);
     ast.elemCount = ast.AA.elemCount + 1;
-    if (! eType.equals(elemType))
-      reporter.reportError ("incompatible array-aggregate element", "", ast.E.position);
+    if (!eType.equals(elemType))
+      reporter.reportError("incompatible array-aggregate element", "", ast.E.position);
     return elemType;
   }
 
@@ -581,8 +550,8 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     FieldTypeDenoter rType = (FieldTypeDenoter) ast.RA.visit(this, null);
     TypeDenoter fType = checkFieldIdentifier(rType, ast.I);
     if (fType != StdEnvironment.errorType)
-      reporter.reportError ("duplicate field \"%\" in record",
-                            ast.I.spelling, ast.I.position);
+      reporter.reportError("duplicate field \"%\" in record",
+          ast.I.spelling, ast.I.position);
     ast.type = new MultipleFieldTypeDenoter(ast.I, eType, rType, ast.position);
     return ast.type;
   }
@@ -598,11 +567,11 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // Always returns null. Does not use the given object.
 
   public Object visitConstFormalParameter(ConstFormalParameter ast, Object o) {
-    ast.T = (TypeDenoter) ast.T.visit(this, null); 
+    ast.T = (TypeDenoter) ast.T.visit(this, null);
     idTable.enter(ast.I.spelling, ast);
     if (ast.duplicated)
-      reporter.reportError ("duplicated formal parameter \"%\"",
-                            ast.I.spelling, ast.position);
+      reporter.reportError("duplicated formal parameter \"%\"",
+          ast.I.spelling, ast.position);
     return null;
   }
 
@@ -611,10 +580,10 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     ast.FPS.visit(this, null);
     idTable.closeScope();
     ast.T = (TypeDenoter) ast.T.visit(this, null);
-    idTable.enter (ast.I.spelling, ast);
+    idTable.enter(ast.I.spelling, ast);
     if (ast.duplicated)
-      reporter.reportError ("duplicated formal parameter \"%\"",
-                            ast.I.spelling, ast.position);
+      reporter.reportError("duplicated formal parameter \"%\"",
+          ast.I.spelling, ast.position);
     return null;
   }
 
@@ -622,19 +591,19 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     idTable.openScope();
     ast.FPS.visit(this, null);
     idTable.closeScope();
-    idTable.enter (ast.I.spelling, ast);
+    idTable.enter(ast.I.spelling, ast);
     if (ast.duplicated)
-      reporter.reportError ("duplicated formal parameter \"%\"",
-                            ast.I.spelling, ast.position);
+      reporter.reportError("duplicated formal parameter \"%\"",
+          ast.I.spelling, ast.position);
     return null;
   }
 
   public Object visitVarFormalParameter(VarFormalParameter ast, Object o) {
     ast.T = (TypeDenoter) ast.T.visit(this, null);
-    idTable.enter (ast.I.spelling, ast);
+    idTable.enter(ast.I.spelling, ast);
     if (ast.duplicated)
-      reporter.reportError ("duplicated formal parameter \"%\"",
-                            ast.I.spelling, ast.position);
+      reporter.reportError("duplicated formal parameter \"%\"",
+          ast.I.spelling, ast.position);
     return null;
   }
 
@@ -661,12 +630,12 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     FormalParameter fp = (FormalParameter) o;
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
 
-    if (! (fp instanceof ConstFormalParameter))
-      reporter.reportError ("const actual parameter not expected here", "",
-                            ast.position);
-    else if (! eType.equals(((ConstFormalParameter) fp).T))
-      reporter.reportError ("wrong type for const actual parameter", "",
-                            ast.E.position);
+    if (!(fp instanceof ConstFormalParameter))
+      reporter.reportError("const actual parameter not expected here", "",
+          ast.position);
+    else if (!eType.equals(((ConstFormalParameter) fp).T))
+      reporter.reportError("wrong type for const actual parameter", "",
+          ast.E.position);
     return null;
   }
 
@@ -675,14 +644,14 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null)
-      reportUndeclared (ast.I);
-    else if (! (binding instanceof FuncDeclaration ||
-                binding instanceof FuncFormalParameter))
-      reporter.reportError ("\"%\" is not a function identifier",
-                            ast.I.spelling, ast.I.position);
-    else if (! (fp instanceof FuncFormalParameter))
-      reporter.reportError ("func actual parameter not expected here", "",
-                            ast.position);
+      reportUndeclared(ast.I);
+    else if (!(binding instanceof FuncDeclaration ||
+        binding instanceof FuncFormalParameter))
+      reporter.reportError("\"%\" is not a function identifier",
+          ast.I.spelling, ast.I.position);
+    else if (!(fp instanceof FuncFormalParameter))
+      reporter.reportError("func actual parameter not expected here", "",
+          ast.position);
     else {
       FormalParameterSequence FPS = null;
       TypeDenoter T = null;
@@ -693,69 +662,73 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         FPS = ((FuncFormalParameter) binding).FPS;
         T = ((FuncFormalParameter) binding).T;
       }
-      if (! FPS.equals(((FuncFormalParameter) fp).FPS))
-        reporter.reportError ("wrong signature for function \"%\"",
-                              ast.I.spelling, ast.I.position);
-      else if (! T.equals(((FuncFormalParameter) fp).T))
-        reporter.reportError ("wrong type for function \"%\"",
-                              ast.I.spelling, ast.I.position);
+      if (!FPS.equals(((FuncFormalParameter) fp).FPS))
+        reporter.reportError("wrong signature for function \"%\"",
+            ast.I.spelling, ast.I.position);
+      else if (!T.equals(((FuncFormalParameter) fp).T))
+        reporter.reportError("wrong type for function \"%\"",
+            ast.I.spelling, ast.I.position);
     }
     return null;
   }
 
+  @Override
   public Object visitProcActualParameter(ProcActualParameter ast, Object o) {
     FormalParameter fp = (FormalParameter) o;
 
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null)
-      reportUndeclared (ast.I);
-    else if (! (binding instanceof ProcDeclaration ||
-                binding instanceof ProcFormalParameter))
-      reporter.reportError ("\"%\" is not a procedure identifier",
-                            ast.I.spelling, ast.I.position);
-    else if (! (fp instanceof ProcFormalParameter))
-      reporter.reportError ("proc actual parameter not expected here", "",
-                            ast.position);
+      reportUndeclared(ast.I);
+    else if (!(binding instanceof ProcDeclaration ||
+        binding instanceof ProcFormalParameter))
+      reporter.reportError("\"%\" is not a procedure identifier",
+          ast.I.spelling, ast.I.position);
+    else if (!(fp instanceof ProcFormalParameter))
+      reporter.reportError("proc actual parameter not expected here", "",
+          ast.position);
     else {
       FormalParameterSequence FPS = null;
       if (binding instanceof ProcDeclaration)
         FPS = ((ProcDeclaration) binding).FPS;
       else
         FPS = ((ProcFormalParameter) binding).FPS;
-      if (! FPS.equals(((ProcFormalParameter) fp).FPS))
-        reporter.reportError ("wrong signature for procedure \"%\"",
-                              ast.I.spelling, ast.I.position);
+      if (!FPS.equals(((ProcFormalParameter) fp).FPS))
+        reporter.reportError("wrong signature for procedure \"%\"",
+            ast.I.spelling, ast.I.position);
     }
     return null;
   }
 
+  @Override
   public Object visitVarActualParameter(VarActualParameter ast, Object o) {
     FormalParameter fp = (FormalParameter) o;
 
     TypeDenoter vType = (TypeDenoter) ast.V.visit(this, null);
-    if (! ast.V.variable)
-      reporter.reportError ("actual parameter is not a variable", "",
-                            ast.V.position);
-    else if (! (fp instanceof VarFormalParameter))
-      reporter.reportError ("var actual parameter not expected here", "",
-                            ast.V.position);
-    else if (! vType.equals(((VarFormalParameter) fp).T))
-      reporter.reportError ("wrong type for var actual parameter", "",
-                            ast.V.position);
+    if (!ast.V.variable)
+      reporter.reportError("actual parameter is not a variable", "",
+          ast.V.position);
+    else if (!(fp instanceof VarFormalParameter))
+      reporter.reportError("var actual parameter not expected here", "",
+          ast.V.position);
+    else if (!vType.equals(((VarFormalParameter) fp).T))
+      reporter.reportError("wrong type for var actual parameter", "",
+          ast.V.position);
     return null;
   }
 
+  @Override
   public Object visitEmptyActualParameterSequence(EmptyActualParameterSequence ast, Object o) {
     FormalParameterSequence fps = (FormalParameterSequence) o;
-    if (! (fps instanceof EmptyFormalParameterSequence))
-      reporter.reportError ("too few actual parameters", "", ast.position);
+    if (!(fps instanceof EmptyFormalParameterSequence))
+      reporter.reportError("too few actual parameters", "", ast.position);
     return null;
   }
 
+  @Override
   public Object visitMultipleActualParameterSequence(MultipleActualParameterSequence ast, Object o) {
     FormalParameterSequence fps = (FormalParameterSequence) o;
-    if (! (fps instanceof MultipleFormalParameterSequence))
-      reporter.reportError ("too many actual parameters", "", ast.position);
+    if (!(fps instanceof MultipleFormalParameterSequence))
+      reporter.reportError("too many actual parameters", "", ast.position);
     else {
       ast.AP.visit(this, ((MultipleFormalParameterSequence) fps).FP);
       ast.APS.visit(this, ((MultipleFormalParameterSequence) fps).FPS);
@@ -765,8 +738,8 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
   public Object visitSingleActualParameterSequence(SingleActualParameterSequence ast, Object o) {
     FormalParameterSequence fps = (FormalParameterSequence) o;
-    if (! (fps instanceof SingleFormalParameterSequence))
-      reporter.reportError ("incorrect number of actual parameters", "", ast.position);
+    if (!(fps instanceof SingleFormalParameterSequence))
+      reporter.reportError("incorrect number of actual parameters", "", ast.position);
     else {
       ast.AP.visit(this, ((SingleFormalParameterSequence) fps).FP);
     }
@@ -785,7 +758,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   public Object visitArrayTypeDenoter(ArrayTypeDenoter ast, Object o) {
     ast.T = (TypeDenoter) ast.T.visit(this, null);
     if ((Integer.valueOf(ast.IL.spelling).intValue()) == 0)
-      reporter.reportError ("arrays must not be empty", "", ast.IL.position);
+      reporter.reportError("arrays must not be empty", "", ast.IL.position);
     return ast;
   }
 
@@ -804,11 +777,11 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   public Object visitSimpleTypeDenoter(SimpleTypeDenoter ast, Object o) {
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null) {
-      reportUndeclared (ast.I);
+      reportUndeclared(ast.I);
       return StdEnvironment.errorType;
-    } else if (! (binding instanceof TypeDeclaration)) {
-      reporter.reportError ("\"%\" is not a type identifier",
-                            ast.I.spelling, ast.I.position);
+    } else if (!(binding instanceof TypeDeclaration)) {
+      reporter.reportError("\"%\" is not a type identifier",
+          ast.I.spelling, ast.I.position);
       return StdEnvironment.errorType;
     }
     return ((TypeDeclaration) binding).T;
@@ -839,6 +812,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     return StdEnvironment.charType;
   }
 
+  @Override
   public Object visitIdentifier(Identifier I, Object o) {
     Declaration binding = idTable.retrieve(I.spelling);
     if (binding != null)
@@ -862,7 +836,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // Determines the address of a named object (constant or variable).
   // This consists of a base object, to which 0 or more field-selection
   // or array-indexing operations may be applied (if it is a record or
-  // array).  As much as possible of the address computation is done at
+  // array). As much as possible of the address computation is done at
   // compile-time. Code is generated only when necessary to evaluate
   // index expressions at run-time.
   // currentLevel is the routine level where the v-name occurs.
@@ -882,13 +856,13 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     ast.type = null;
     TypeDenoter vType = (TypeDenoter) ast.V.visit(this, null);
     ast.variable = ast.V.variable;
-    if (! (vType instanceof RecordTypeDenoter))
-      reporter.reportError ("record expected here", "", ast.V.position);
+    if (!(vType instanceof RecordTypeDenoter))
+      reporter.reportError("record expected here", "", ast.V.position);
     else {
       ast.type = checkFieldIdentifier(((RecordTypeDenoter) vType).FT, ast.I);
       if (ast.type == StdEnvironment.errorType)
-        reporter.reportError ("no field \"%\" in this record type",
-                              ast.I.spelling, ast.I.position);
+        reporter.reportError("no field \"%\" in this record type",
+            ast.I.spelling, ast.I.position);
     }
     return ast.type;
   }
@@ -899,31 +873,27 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     Declaration binding = (Declaration) ast.I.visit(this, null);
     if (binding == null)
       reportUndeclared(ast.I);
-    else
-      if (binding instanceof ConstDeclaration) {
-        ast.type = ((ConstDeclaration) binding).E.type;
-        ast.variable = false;
-      } else if (binding instanceof VarDeclaration) {
-        ast.type = ((VarDeclaration) binding).T;
-        ast.variable = true;
-      } else if (binding instanceof ConstFormalParameter) {
-        ast.type = ((ConstFormalParameter) binding).T;
-        ast.variable = false;
-      } else if (binding instanceof VarFormalParameter) {
-        ast.type = ((VarFormalParameter) binding).T;
-        ast.variable = true;
-      } else if (binding instanceof VarDeclarationInit) {
-        ast.type = ((VarDeclarationInit) binding).T;
-        ast.variable = true;
-      /*} else if (binding instanceof ProcDeclaration) {
-        //ast.type = ((ProcDeclaration) binding).T;
-        ast.variable = false;
-      } else if (binding instanceof FuncDeclaration) {
-        ast.type = ((FuncDeclaration) binding).T;
-        ast.variable = false;*/
-      } else
-        reporter.reportError ("\"%\" is not a const or var identifier",
-                              ast.I.spelling, ast.I.position);
+    else if (binding instanceof ConstDeclaration) {
+      ast.type = ((ConstDeclaration) binding).E.type;
+      ast.variable = false;
+    } else if (binding instanceof VarDeclaration) {
+      ast.type = ((VarDeclaration) binding).T;
+      ast.variable = true;
+    } else if (binding instanceof ConstFormalParameter) {
+      ast.type = ((ConstFormalParameter) binding).T;
+      ast.variable = false;
+    } else if (binding instanceof VarFormalParameter) {
+      ast.type = ((VarFormalParameter) binding).T;
+      ast.variable = true;
+    } else if (binding instanceof VarDeclarationInit) {
+      ast.type = ((VarDeclarationInit) binding).T;
+      ast.variable = true;
+    } else if (binding instanceof ForFromCommand) {
+      ast.type = ((ForFromCommand) binding).E.type;
+      ast.variable = true; // Se agrega como una variable
+    } else
+      reporter.reportError("\"%\" is not a const or var identifier",
+          ast.I.spelling, ast.I.position);
     return ast.type;
   }
 
@@ -932,12 +902,12 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     ast.variable = ast.V.variable;
     TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
     if (vType != StdEnvironment.errorType) {
-      if (! (vType instanceof ArrayTypeDenoter))
-        reporter.reportError ("array expected here", "", ast.V.position);
+      if (!(vType instanceof ArrayTypeDenoter))
+        reporter.reportError("array expected here", "", ast.V.position);
       else {
-        if (! eType.equals(StdEnvironment.integerType))
-          reporter.reportError ("Integer expression expected here", "",
-				ast.E.position);
+        if (!eType.equals(StdEnvironment.integerType))
+          reporter.reportError("Integer expression expected here", "",
+              ast.E.position);
         ast.type = ((ArrayTypeDenoter) vType).T;
       }
     }
@@ -954,10 +924,10 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // Checks whether the source program, represented by its AST, satisfies the
   // language's scope rules and type rules.
   // Also decorates the AST as follows:
-  //  (a) Each applied occurrence of an identifier or operator is linked to
-  //      the corresponding declaration of that identifier or operator.
-  //  (b) Each expression and value-or-variable-name is decorated by its type.
-  //  (c) Each type identifier is replaced by the type it denotes.
+  // (a) Each applied occurrence of an identifier or operator is linked to
+  // the corresponding declaration of that identifier or operator.
+  // (b) Each expression and value-or-variable-name is decorated by its type.
+  // (c) Each type identifier is replaced by the type it denotes.
   // Types are represented by small ASTs.
 
   public void check(Program ast) {
@@ -966,9 +936,9 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
   /////////////////////////////////////////////////////////////////////////////
 
-  public Checker (ErrorReporter reporter) {
+  public Checker(ErrorReporter reporter) {
     this.reporter = reporter;
-    this.idTable = new IdentificationTable ();
+    this.idTable = new IdentificationTable();
     establishStdEnvironment();
   }
 
@@ -979,10 +949,9 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // Reports that the identifier or operator used at a leaf of the AST
   // has not been declared.
 
-  private void reportUndeclared (Terminal leaf) {
+  private void reportUndeclared(Terminal leaf) {
     reporter.reportError("\"%\" is not declared", leaf.spelling, leaf.position);
   }
-
 
   private static TypeDenoter checkFieldIdentifier(FieldTypeDenoter ast, Identifier I) {
     if (ast instanceof MultipleFieldTypeDenoter) {
@@ -991,7 +960,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
         I.decl = ast;
         return ft.T;
       } else {
-        return checkFieldIdentifier (ft.FT, I);
+        return checkFieldIdentifier(ft.FT, I);
       }
     } else if (ast instanceof SingleFieldTypeDenoter) {
       SingleFieldTypeDenoter ft = (SingleFieldTypeDenoter) ast;
@@ -1003,11 +972,10 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     return StdEnvironment.errorType;
   }
 
-
   // Creates a small AST to represent the "declaration" of a standard
   // type, and enters it in the identification table.
 
-  private TypeDeclaration declareStdType (String id, TypeDenoter typedenoter) {
+  private TypeDeclaration declareStdType(String id, TypeDenoter typedenoter) {
 
     TypeDeclaration binding;
 
@@ -1019,7 +987,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // Creates a small AST to represent the "declaration" of a standard
   // type, and enters it in the identification table.
 
-  private ConstDeclaration declareStdConst (String id, TypeDenoter constType) {
+  private ConstDeclaration declareStdConst(String id, TypeDenoter constType) {
 
     IntegerExpression constExpr;
     ConstDeclaration binding;
@@ -1035,12 +1003,12 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // Creates a small AST to represent the "declaration" of a standard
   // type, and enters it in the identification table.
 
-  private ProcDeclaration declareStdProc (String id, FormalParameterSequence fps) {
+  private ProcDeclaration declareStdProc(String id, FormalParameterSequence fps) {
 
     ProcDeclaration binding;
 
     binding = new ProcDeclaration(new Identifier(id, dummyPos), fps,
-                                  new EmptyCommand(dummyPos), dummyPos);
+        new EmptyCommand(dummyPos), dummyPos);
     idTable.enter(id, binding);
     return binding;
   }
@@ -1048,13 +1016,13 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // Creates a small AST to represent the "declaration" of a standard
   // type, and enters it in the identification table.
 
-  private FuncDeclaration declareStdFunc (String id, FormalParameterSequence fps,
-                                          TypeDenoter resultType) {
+  private FuncDeclaration declareStdFunc(String id, FormalParameterSequence fps,
+      TypeDenoter resultType) {
 
     FuncDeclaration binding;
 
     binding = new FuncDeclaration(new Identifier(id, dummyPos), fps, resultType,
-                                  new EmptyExpression(dummyPos), dummyPos);
+        new EmptyExpression(dummyPos), dummyPos);
     idTable.enter(id, binding);
     return binding;
   }
@@ -1063,13 +1031,12 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // unary operator, and enters it in the identification table.
   // This "declaration" summarises the operator's type info.
 
-  private UnaryOperatorDeclaration declareStdUnaryOp
-    (String op, TypeDenoter argType, TypeDenoter resultType) {
+  private UnaryOperatorDeclaration declareStdUnaryOp(String op, TypeDenoter argType, TypeDenoter resultType) {
 
     UnaryOperatorDeclaration binding;
 
-    binding = new UnaryOperatorDeclaration (new Operator(op, dummyPos),
-                                            argType, resultType, dummyPos);
+    binding = new UnaryOperatorDeclaration(new Operator(op, dummyPos),
+        argType, resultType, dummyPos);
     idTable.enter(op, binding);
     return binding;
   }
@@ -1078,13 +1045,13 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
   // binary operator, and enters it in the identification table.
   // This "declaration" summarises the operator's type info.
 
-  private BinaryOperatorDeclaration declareStdBinaryOp
-    (String op, TypeDenoter arg1Type, TypeDenoter arg2type, TypeDenoter resultType) {
+  private BinaryOperatorDeclaration declareStdBinaryOp(String op, TypeDenoter arg1Type, TypeDenoter arg2type,
+      TypeDenoter resultType) {
 
     BinaryOperatorDeclaration binding;
 
-    binding = new BinaryOperatorDeclaration (new Operator(op, dummyPos),
-                                             arg1Type, arg2type, resultType, dummyPos);
+    binding = new BinaryOperatorDeclaration(new Operator(op, dummyPos),
+        arg1Type, arg2type, resultType, dummyPos);
     idTable.enter(op, binding);
     return binding;
   }
@@ -1096,7 +1063,7 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
 
   private final static Identifier dummyI = new Identifier("", dummyPos);
 
-  private void establishStdEnvironment () {
+  private void establishStdEnvironment() {
 
     // idTable.startIdentification();
     StdEnvironment.booleanType = new BoolTypeDenoter(dummyPos);
@@ -1109,203 +1076,213 @@ public Object visitMultipleCase(MultipleCase ast, Object obj){
     StdEnvironment.falseDecl = declareStdConst("false", StdEnvironment.booleanType);
     StdEnvironment.trueDecl = declareStdConst("true", StdEnvironment.booleanType);
     StdEnvironment.notDecl = declareStdUnaryOp("\\", StdEnvironment.booleanType, StdEnvironment.booleanType);
-    StdEnvironment.andDecl = declareStdBinaryOp("/\\", StdEnvironment.booleanType, StdEnvironment.booleanType, StdEnvironment.booleanType);
-    StdEnvironment.orDecl = declareStdBinaryOp("\\/", StdEnvironment.booleanType, StdEnvironment.booleanType, StdEnvironment.booleanType);
+    StdEnvironment.andDecl = declareStdBinaryOp("/\\", StdEnvironment.booleanType, StdEnvironment.booleanType,
+        StdEnvironment.booleanType);
+    StdEnvironment.orDecl = declareStdBinaryOp("\\/", StdEnvironment.booleanType, StdEnvironment.booleanType,
+        StdEnvironment.booleanType);
 
     StdEnvironment.integerDecl = declareStdType("Integer", StdEnvironment.integerType);
     StdEnvironment.maxintDecl = declareStdConst("maxint", StdEnvironment.integerType);
-    StdEnvironment.addDecl = declareStdBinaryOp("+", StdEnvironment.integerType, StdEnvironment.integerType, StdEnvironment.integerType);
-    StdEnvironment.subtractDecl = declareStdBinaryOp("-", StdEnvironment.integerType, StdEnvironment.integerType, StdEnvironment.integerType);
-    StdEnvironment.multiplyDecl = declareStdBinaryOp("*", StdEnvironment.integerType, StdEnvironment.integerType, StdEnvironment.integerType);
-    StdEnvironment.divideDecl = declareStdBinaryOp("/", StdEnvironment.integerType, StdEnvironment.integerType, StdEnvironment.integerType);
-    StdEnvironment.moduloDecl = declareStdBinaryOp("//", StdEnvironment.integerType, StdEnvironment.integerType, StdEnvironment.integerType);
-    StdEnvironment.lessDecl = declareStdBinaryOp("<", StdEnvironment.integerType, StdEnvironment.integerType, StdEnvironment.booleanType);
-    StdEnvironment.notgreaterDecl = declareStdBinaryOp("<=", StdEnvironment.integerType, StdEnvironment.integerType, StdEnvironment.booleanType);
-    StdEnvironment.greaterDecl = declareStdBinaryOp(">", StdEnvironment.integerType, StdEnvironment.integerType, StdEnvironment.booleanType);
-    StdEnvironment.notlessDecl = declareStdBinaryOp(">=", StdEnvironment.integerType, StdEnvironment.integerType, StdEnvironment.booleanType);
+    StdEnvironment.addDecl = declareStdBinaryOp("+", StdEnvironment.integerType, StdEnvironment.integerType,
+        StdEnvironment.integerType);
+    StdEnvironment.subtractDecl = declareStdBinaryOp("-", StdEnvironment.integerType, StdEnvironment.integerType,
+        StdEnvironment.integerType);
+    StdEnvironment.multiplyDecl = declareStdBinaryOp("*", StdEnvironment.integerType, StdEnvironment.integerType,
+        StdEnvironment.integerType);
+    StdEnvironment.divideDecl = declareStdBinaryOp("/", StdEnvironment.integerType, StdEnvironment.integerType,
+        StdEnvironment.integerType);
+    StdEnvironment.moduloDecl = declareStdBinaryOp("//", StdEnvironment.integerType, StdEnvironment.integerType,
+        StdEnvironment.integerType);
+    StdEnvironment.lessDecl = declareStdBinaryOp("<", StdEnvironment.integerType, StdEnvironment.integerType,
+        StdEnvironment.booleanType);
+    StdEnvironment.notgreaterDecl = declareStdBinaryOp("<=", StdEnvironment.integerType, StdEnvironment.integerType,
+        StdEnvironment.booleanType);
+    StdEnvironment.greaterDecl = declareStdBinaryOp(">", StdEnvironment.integerType, StdEnvironment.integerType,
+        StdEnvironment.booleanType);
+    StdEnvironment.notlessDecl = declareStdBinaryOp(">=", StdEnvironment.integerType, StdEnvironment.integerType,
+        StdEnvironment.booleanType);
 
     StdEnvironment.charDecl = declareStdType("Char", StdEnvironment.charType);
     StdEnvironment.chrDecl = declareStdFunc("chr", new SingleFormalParameterSequence(
-                                      new ConstFormalParameter(dummyI, StdEnvironment.integerType, dummyPos), dummyPos), StdEnvironment.charType);
+        new ConstFormalParameter(dummyI, StdEnvironment.integerType, dummyPos), dummyPos), StdEnvironment.charType);
     StdEnvironment.ordDecl = declareStdFunc("ord", new SingleFormalParameterSequence(
-                                      new ConstFormalParameter(dummyI, StdEnvironment.charType, dummyPos), dummyPos), StdEnvironment.integerType);
-    StdEnvironment.eofDecl = declareStdFunc("eof", new EmptyFormalParameterSequence(dummyPos), StdEnvironment.booleanType);
-    StdEnvironment.eolDecl = declareStdFunc("eol", new EmptyFormalParameterSequence(dummyPos), StdEnvironment.booleanType);
+        new ConstFormalParameter(dummyI, StdEnvironment.charType, dummyPos), dummyPos), StdEnvironment.integerType);
+    StdEnvironment.eofDecl = declareStdFunc("eof", new EmptyFormalParameterSequence(dummyPos),
+        StdEnvironment.booleanType);
+    StdEnvironment.eolDecl = declareStdFunc("eol", new EmptyFormalParameterSequence(dummyPos),
+        StdEnvironment.booleanType);
     StdEnvironment.getDecl = declareStdProc("get", new SingleFormalParameterSequence(
-                                      new VarFormalParameter(dummyI, StdEnvironment.charType, dummyPos), dummyPos));
+        new VarFormalParameter(dummyI, StdEnvironment.charType, dummyPos), dummyPos));
     StdEnvironment.putDecl = declareStdProc("put", new SingleFormalParameterSequence(
-                                      new ConstFormalParameter(dummyI, StdEnvironment.charType, dummyPos), dummyPos));
+        new ConstFormalParameter(dummyI, StdEnvironment.charType, dummyPos), dummyPos));
     StdEnvironment.getintDecl = declareStdProc("getint", new SingleFormalParameterSequence(
-                                            new VarFormalParameter(dummyI, StdEnvironment.integerType, dummyPos), dummyPos));
+        new VarFormalParameter(dummyI, StdEnvironment.integerType, dummyPos), dummyPos));
     StdEnvironment.putintDecl = declareStdProc("putint", new SingleFormalParameterSequence(
-                                            new ConstFormalParameter(dummyI, StdEnvironment.integerType, dummyPos), dummyPos));
+        new ConstFormalParameter(dummyI, StdEnvironment.integerType, dummyPos), dummyPos));
     StdEnvironment.geteolDecl = declareStdProc("geteol", new EmptyFormalParameterSequence(dummyPos));
     StdEnvironment.puteolDecl = declareStdProc("puteol", new EmptyFormalParameterSequence(dummyPos));
-    StdEnvironment.equalDecl = declareStdBinaryOp("=", StdEnvironment.anyType, StdEnvironment.anyType, StdEnvironment.booleanType);
-    StdEnvironment.unequalDecl = declareStdBinaryOp("\\=", StdEnvironment.anyType, StdEnvironment.anyType, StdEnvironment.booleanType);
+    StdEnvironment.equalDecl = declareStdBinaryOp("=", StdEnvironment.anyType, StdEnvironment.anyType,
+        StdEnvironment.booleanType);
+    StdEnvironment.unequalDecl = declareStdBinaryOp("\\=", StdEnvironment.anyType, StdEnvironment.anyType,
+        StdEnvironment.booleanType);
+  }
+
+  @Override
+  public Object visitLoopCommandAST1(LoopCommandAST1 aThis, Object o) {
+    aThis.WhileVar.visit(this, aThis);
+    return null;
+  }
+
+  @Override
+  public Object visitForFromCommand(ForFromCommand aThis, Object o) {
+    TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
+    if (!eType.equals(StdEnvironment.integerType))
+      reporter.reportError("Integer Expression expected here", "", aThis.E.position);
+    return null;
+  }
+
+  @Override
+  public Object visitDoCommandAST(DoCommand aThis, Object o) {
+    aThis.C.visit(this, null);
+    return null;
 
   }
 
-    @Override
-    public Object visitLoopCommandAST1(LoopCommandAST1 aThis, Object o) {
-        if(aThis.I != null){
-            aThis.I.visit(this, null);
-        }
-        aThis.WhileVar.visit(this, null);
-        return null;
-    }
-
-    @Override
-    public Object visitForFromCommand(ForFromCommand aThis, Object o) {
-        TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
-        if (! eType.equals(StdEnvironment.integerType))
-          reporter.reportError("Integer expression expected here", "", aThis.E.position);
-        return null;
-    }
-
-    @Override
-    public Object visitDoCommandAST(DoCommand aThis, Object o) {
-         aThis.C.visit(this, null);
-        return null;
-
-    }
-
-    @Override
-    public Object visitForFromAST1(ForFromAST1 aThis, Object o) {
-        if(aThis.I != null){
-            aThis.I.visit(this, null);
-        }
-        aThis.ForFrom.visit(this, null);
-        aThis.E.visit(this, null);
-        aThis.Do.visit(this, null);
-        return null;
-    }
-
-    @Override
-    public Object visitLoopUntilDoAST(LoopUntilDoAST aThis, Object o) {
-        if(aThis.I != null){
-            aThis.I.visit(this, null);
-        }
-        aThis.UntilVar.visit(this, null);
-        return null;
-    }
-
-    @Override
-    public Object visitUntilCommand(UntilCommand aThis, Object o) {
-    TypeDenoter eType = (TypeDenoter) aThis.I.visit(this, null);
-    if (! eType.equals(StdEnvironment.booleanType))
-      reporter.reportError("Boolean expression expected here", "", aThis.I.position);
-    aThis.C.visit(this, null);
+  @Override
+  public Object visitForFromAST1(ForFromAST1 aThis, Object o) {
+    idTable.openScope();
+    idTable.enter(aThis.ForFrom.I.spelling, aThis.ForFrom);
+    if (aThis.ForFrom.duplicated)
+      reporter.reportError("identifier \"%\" already declared",
+          aThis.ForFrom.I.spelling, aThis.ForFrom.position);
+    aThis.Do.visit(this, null);
+    idTable.closeScope();
+    aThis.ForFrom.visit(this, null);
+    aThis.E.visit(this, null);
+    aThis.I.visit(this, null);
     return null;
-    
-    }
+  }
 
-    @Override
-    public Object visitWhileEndCommand(WhileEndCommand aThis, Object o) {
-         TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
-        if (! eType.equals(StdEnvironment.booleanType))
-          reporter.reportError("Boolean expression expected here", "", aThis.E.position);
-        return null;
-    }
+  @Override
+  public Object visitLoopUntilDoAST(LoopUntilDoAST aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
 
-    @Override
-    public Object visitLooopWhileEndCommand(LoopWhileEndAST aThis, Object o) {
-        aThis.C.visit(this, null);
-        if(aThis.I != null){
-            aThis.I.visit(this, null);
-        }
-        aThis.WhileV.visit(this, null);
-        return null;
-    }
+  @Override
+  public Object visitUntilCommand(UntilCommand aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
 
-    @Override
-    public Object visitUntilEndCommand(UntilEndCommand aThis, Object o) {
-         TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
-        if (! eType.equals(StdEnvironment.booleanType))
-          reporter.reportError("Boolean expression expected here", "", aThis.E.position);
-        return null;
-    }
+  @Override
+  public Object visitWhileEndCommand(WhileEndCommand aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
 
-    @Override
-    public Object visitLooopUntilEndCommand(LoopUntilEndAST aThis, Object o) {
-        aThis.C.visit(this, null);
-        if(aThis.I != null){
-            aThis.I.visit(this, null);
-        }
-        aThis.UntilEnd.visit(this, null);
-        return null;
-    }
+  @Override
+  public Object visitLooopWhileEndCommand(LoopWhileEndAST aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
 
-    @Override
-    public Object visitForFromWhile(LoopForFromWhile aThis, Object o) {
-        if(aThis.I != null){
-            aThis.I.visit(this, null);
-        }
-        aThis.ForFrom.visit(this, null);
-        aThis.E.visit(this, null);
-        aThis.whileV.visit(this, null);
-        return null;
-    }
+  @Override
+  public Object visitUntilEndCommand(UntilEndCommand aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
 
-    @Override
-    public Object visitForFromUntil(LoopForFromUntil aThis, Object o) {
-        TypeDenoter iType = (TypeDenoter) aThis.I.visit(this, null);
-        if (! iType.equals(StdEnvironment.integerType))
-          reporter.reportError("Integer expression expected here", "", aThis.I.position);
-        aThis.ForFrom.visit(this, null);
-        aThis.E.visit(this, null);
-        aThis.untilV.visit(this, null);
-        return null;
-    }
+  @Override
+  public Object visitLooopUntilEndCommand(LoopUntilEndAST aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
 
-    @Override
-    public Object visitForInCommand(ForInCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  @Override
+  public Object visitForFromWhile(LoopForFromWhile aThis, Object o) {
+    aThis.ForFrom.visit(this, null);
+    aThis.E.visit(this, null);
+    idTable.openScope();
+    idTable.enter(aThis.ForFrom.I.spelling, aThis.ForFrom);
+    if (aThis.ForFrom.duplicated)
+      reporter.reportError("identifier \"%\" already declared",
+          aThis.ForFrom.I.spelling, aThis.ForFrom.position);
+    aThis.whileV.visit(this, null);
+    idTable.closeScope();
+    return null;
+  }
 
-    @Override
-    public Object visitForInDoCommand(ForInDo aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  @Override
+  public Object visitForFromUntil(LoopForFromUntil aThis, Object o) {
+    TypeDenoter eType = (TypeDenoter) aThis.untilV.I.visit(this, null);
+    if (!eType.equals(StdEnvironment.booleanType))
+      reporter.reportError("boolean expression expected here", "", eType.position);
+    aThis.untilV.C.visit(this, null);
+    return null;
+    // throw new UnsupportedOperationException("Not supported yet."); // Generated
+    // from
+    // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
 
-    @Override
-    public Object visitToCommandAST(ToCommand aThis, Object o) {
-         TypeDenoter eType = (TypeDenoter) aThis.E.visit(this, null);
-        if (! eType.equals(StdEnvironment.integerType))
-          reporter.reportError("IntegerType expression expected here", "", aThis.E.position);
-        return null;
-    }
+  @Override
+  public Object visitForInCommand(ForInCommand aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
 
-    //Editado por Erick Madrigal
-    @Override
-    public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {               
-        TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
-        ast.T = eType;
-        idTable.enter(ast.I.spelling, ast);
-        if (ast.duplicated)
-            reporter.reportError ("identifier \"%\" already declared",
-                                  ast.I.spelling, ast.position);
-        return null;
-        
-    }
+  @Override
+  public Object visitForInDoCommand(ForInDo aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
 
-    @Override
-    public Object visitThenCommandAST(ThenCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  @Override
+  public Object visitToCommandAST(ToCommand aThis, Object o) {
 
-    @Override
-    public Object visitLeaveIdentifier(LeaveIdentifier aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    idTable.openScope();
+    aThis.E.visit(this, null);
+    idTable.closeScope();
+    return null;
+  }
 
-    @Override
-    public Object visitNextIdentifier(NextIdentifier aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  // Editado por Erick Madrigal
+  @Override
+  public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {
+    idTable.enter(ast.I.spelling, ast);
+    if (ast.duplicated)
+      reporter.reportError("identifier \"%\" already declared",
+          ast.I.spelling, ast.position);
+    return null;
+  }
 
-    @Override
-    public Object visitReturnCommand(ReturnCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  @Override
+  public Object visitThenCommandAST(ThenCommand aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
+
+  @Override
+  public Object visitLeaveIdentifier(LeaveIdentifier aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
+
+  @Override
+  public Object visitNextIdentifier(NextIdentifier aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
+
+  @Override
+  public Object visitReturnCommand(ReturnCommand aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                   // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  }
+
+  @Override
+  public Object visitLoopDeclaration(LoopDeclaration aThis, Object o) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
+  }
 }

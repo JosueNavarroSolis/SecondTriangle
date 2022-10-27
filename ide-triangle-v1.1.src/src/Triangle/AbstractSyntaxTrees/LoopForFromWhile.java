@@ -26,6 +26,7 @@ public class LoopForFromWhile extends Command{
         E = eAST;
         whileV = whileAST;
     }
+    
     @Override
     public Object visit(Visitor v, Object o) {
       return v.visitForFromWhile(this, o);

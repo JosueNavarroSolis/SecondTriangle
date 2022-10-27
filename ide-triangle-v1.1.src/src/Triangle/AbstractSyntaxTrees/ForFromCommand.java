@@ -10,13 +10,14 @@ import Triangle.SyntacticAnalyzer.SourcePosition;
  *
  * @author Valeria Chinchilla
  */
-public class ForFromCommand extends Command{
+public class ForFromCommand extends Declaration{
   public ForFromCommand (Identifier iAST, Expression eAST, SourcePosition thePosition) {
     super (thePosition);
     I = iAST;
     E = eAST;
   }
 
+  @Override
   public Object visit(Visitor v, Object o) {
     return v.visitForFromCommand(this, o);
   }

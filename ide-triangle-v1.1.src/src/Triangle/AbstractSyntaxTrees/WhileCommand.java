@@ -24,6 +24,7 @@ public class WhileCommand extends Command {
     C = cAST;
   }
 
+  @Override
   public Object visit(Visitor v, Object o) {
     return v.visitWhileCommand(this, o);
   }
