@@ -674,7 +674,6 @@ public class Parser {
                         
                         acceptIt();
                         // Se obtiene el primer arbol ("for" Identifier "from" Expression)
-                        System.out.println("forfromcommand");
                         ForFromCommand ForFromAST = ParseForFromCommand(commandPos, iAST2);
                         // Aceptar el token to
                         accept(Token.TO);
@@ -920,8 +919,6 @@ public class Parser {
     while (currentToken.kind == Token.OPERATOR) {
       Operator opAST = parseOperator();
       Expression e2AST = parsePrimaryExpression();
-        System.out.println("expr1: "+expressionAST);
-        System.out.println("expr2: "+e2AST);
       expressionAST = new BinaryExpression (expressionAST, opAST, e2AST,
         expressionPos);
     }
