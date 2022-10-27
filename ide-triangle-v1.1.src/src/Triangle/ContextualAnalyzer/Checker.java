@@ -652,6 +652,7 @@ public final class Checker implements Visitor {
     ast.FPS.visit(this, null);
     idTable.closeScope();
     ast.T = (TypeDenoter) ast.T.visit(this, null);
+    idTable.enter(ast.I.spelling, ast);
     if (ast.duplicated)
       reporter.reportError("duplicated formal parameter \"%\"",
           ast.I.spelling, ast.position);
