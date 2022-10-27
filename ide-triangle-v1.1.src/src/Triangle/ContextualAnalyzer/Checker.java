@@ -450,6 +450,7 @@ public final class Checker implements Visitor {
     return null;
   }
 
+  // editado por Erick Madrigal
   public Object visitFuncDeclaration(FuncDeclaration ast, Object o) {
     ast.T = (TypeDenoter) ast.T.visit(this, null);
     idTable.enter(ast.I.spelling, ast); // permits recursion
@@ -466,8 +467,8 @@ public final class Checker implements Visitor {
     return null;
   }
 
+  // editado por Erick Madrigal
   public Object visitProcDeclaration(ProcDeclaration ast, Object o) {
-    idTable.enter(ast.I.spelling, ast); // permits recursion
     if (ast.duplicated)
       reporter.reportError("identifier \"%\" already declared",
           ast.I.spelling, ast.position);
@@ -486,6 +487,86 @@ public final class Checker implements Visitor {
   }
 
   @Override
+  // editado por Erick Madrigal
+  @Override
+  public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
+    Declaration d1 = ast.D1;
+    Declaration d2 = ast.D2;
+    try {
+      if (d2 instanceof FuncDeclaration && ((FuncDeclaration) d2).V) {
+        return null;
+      }
+      if (d2 instanceof ProcDeclaration && ((ProcDeclaration) d2).V) {
+        return null;
+      }
+      if (d1 instanceof SequentialDeclaration) {
+        if (d2 instanceof ProcDeclaration) {
+          addProc((ProcDeclaration) d2);
+          d1.visit(this, null);
+        } else {
+          if (d2 instanceof FuncDeclaration) {
+            addFunc((FuncDeclaration) d2);
+            d1.visit(this, null);
+          }
+        }
+      } else {
+        if (d1 instanceof FuncDeclaration) {
+          addFunc((FuncDeclaration) d1);
+        } else {
+          if (d1 instanceof ProcDeclaration) {
+            addProc((ProcDeclaration) d1);
+          }
+        }
+
+        if (d2 instanceof FuncDeclaration) {
+          addFunc((FuncDeclaration) d2);
+        } else {
+          if (d2 instanceof ProcDeclaration) {
+            addProc((ProcDeclaration) d2);
+          }
+        }
+      }
+
+      d1.visit(this, null);
+      d2.visit(this, null);
+      return null;
+
+    } catch (Exception e) {
+      d1.visit(this, null);
+      d2.visit(this, null);
+      return null;
+    }
+
+  }
+
+  // createdd by Erick Madrigal
+  public void addFunc(FuncDeclaration ast) {
+    ast.T = (TypeDenoter) ast.T.visit(this, null);
+    idTable.enter(ast.I.spelling, ast);
+    if (!ast.duplicated) {
+      idTable.openScope();
+      ast.FPS.visit(this, null);
+      idTable.closeScope();
+      ast.V = true;
+    } else {
+      reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);
+    }
+
+  }
+
+  // createdd by Erick Madrigal
+  public void addProc(ProcDeclaration ast) {
+    idTable.enter(ast.I.spelling, ast);
+    if (!ast.duplicated) {
+      idTable.openScope();
+      ast.FPS.visit(this, null);
+      idTable.closeScope();
+      ast.V = true;
+    } else {
+      reporter.reportError("The identifier \"%\" is already declared", ast.I.spelling, ast.position);
+    }
+  }
+
   public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {
     // idTable.stackPush(0);
     idTable.publicPush();
@@ -1240,10 +1321,20 @@ public final class Checker implements Visitor {
   @Override
   public Object visitToCommandAST(ToCommand aThis, Object o) {
 
-    idTable.openScope();
-    aThis.E.visit(this, null);
-    idTable.closeScope();
+  // Editado por Erick Madrigal
+  // @Override
+  public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {
+    TypeDenoter eType = (TypeDenoter) ast.E.visit(this, null);
+    ast.T = eType;
+    idTable.enter(ast.I.spelling, ast);
+    if (ast.duplicated)
+      reporter.reportError("identifier \"%\" already declared",
+          ast.I.spelling, ast.position);
     return null;
+  }
+
+  idTable.openScope();aThis.E.visit(this,null);idTable.closeScope();return null;
+
   }
 
   // Editado por Erick Madrigal
