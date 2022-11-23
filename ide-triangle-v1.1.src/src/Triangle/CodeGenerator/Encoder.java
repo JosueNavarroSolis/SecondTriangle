@@ -1183,8 +1183,13 @@ public final class Encoder implements Visitor {
     }
 
     @Override
-    public Object visitVarDeclarationInit(VarDeclarationInit aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) {
+        Frame frame = (Frame) o;
+        int extraSize;
+        extraSize = (Integer) ast.E.visit(this, frame);        
+        ast.entity = new KnownAddress(Machine.addressSize, frame.level, frame.size); 
+        writeTableDetails(ast);
+    return extraSize;
     }
 
     @Override
