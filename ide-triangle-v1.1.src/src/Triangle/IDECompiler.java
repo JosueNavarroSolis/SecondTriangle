@@ -72,9 +72,9 @@ public class IDECompiler {
             //XML.crear(rootAST, nombreArchivo2);
             
             if (report.numErrors == 0) {
-                //System.out.println("Code Generation ...");
-                //Encoder encoder = new Encoder(report);
-                //encoder.encodeRun(rootAST, false);
+                System.out.println("Code Generation ...");
+                Encoder encoder = new Encoder(report);
+                encoder.encodeRun(rootAST, false);
                 
                 if (report.numErrors == 0) {
                     //encoder.saveObjectProgram(sourceName.replace(".tri", ".tam"));
