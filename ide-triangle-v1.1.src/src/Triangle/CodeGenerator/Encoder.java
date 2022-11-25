@@ -426,14 +426,30 @@ public final class Encoder implements Visitor {
   }
 
   public Object visitSequentialDeclaration(SequentialDeclaration ast, Object o) {
-    Frame frame = (Frame) o;
+    Frame frame,frame1;
+    frame = (Frame) o;
     int extraSize1, extraSize2;
+    
+    //se guarda la dirrección inicial para cuando 
+    //se vuelvan a visitar los 
+    int InstrAddr = nextInstrAddr; 
+    //se visitan las declaraciones 1 vez para obtener 
+    //las direcciones de los procs y funcs futuros
+    ast.D1.visit(this, frame); 
+    ast.D2.visit(this, frame);
+    
+    //se reinicia la posicion del nextInstrAddr
+    nextInstrAddr = InstrAddr; 
+    //se vuelven a visitar las declaraciones ahora con la 
+    //posobilidad de tener las direcciones futuras
+    extraSize1 = ((Integer) ast.D1.visit(this, frame));
+    frame1 = new Frame (frame, extraSize1);
+    extraSize2 = ((Integer) ast.D2.visit(this, frame1));
 
-    extraSize1 = ((Integer) ast.D1.visit(this, frame)).intValue();
-    Frame frame1 = new Frame (frame, extraSize1);
-    extraSize2 = ((Integer) ast.D2.visit(this, frame1)).intValue();
-    return new Integer(extraSize1 + extraSize2);
+    return extraSize1 + extraSize2;    
   }
+  
+  
   public Object visitLocalDeclaration(LocalDeclaration ast, Object o) {
     Frame frame = (Frame) o;
     int extraSize1, extraSize2;
@@ -728,7 +744,9 @@ public final class Encoder implements Visitor {
 
   public Object visitIdentifier(Identifier ast, Object o) {
     Frame frame = (Frame) o;
-    if (ast.decl.entity instanceof KnownRoutine) {
+    if(ast.decl == null){
+        emit(Machine.CALLop, 0, Machine.CBr, 0);
+    }else if (ast.decl.entity instanceof KnownRoutine) {
       ObjectAddress address = ((KnownRoutine) ast.decl.entity).address;
       emit(Machine.CALLop, displayRegister(frame.level, address.level),
 	   Machine.CBr, address.displacement);
