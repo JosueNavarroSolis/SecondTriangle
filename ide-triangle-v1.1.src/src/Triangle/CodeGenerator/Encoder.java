@@ -744,7 +744,7 @@ public final class Encoder implements Visitor {
 
   public Object visitIdentifier(Identifier ast, Object o) {
     Frame frame = (Frame) o;
-    if(ast.decl == null){
+    if(ast.decl.entity == null){
         emit(Machine.CALLop, 0, Machine.CBr, 0);
     }else if (ast.decl.entity instanceof KnownRoutine) {
       ObjectAddress address = ((KnownRoutine) ast.decl.entity).address;
