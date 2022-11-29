@@ -1109,7 +1109,9 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitLoopCommandAST1(LoopCommandAST1 aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Frame frame = (Frame) o;
+        aThis.WhileVar.visit(this, frame);
+        return null;
     }
 
     @Override
@@ -1119,7 +1121,9 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitDoCommandAST(DoCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Frame frame = (Frame) o;
+        aThis.C.visit(this, frame);
+        return null;    
     }
 
     @Override
@@ -1129,32 +1133,58 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitLoopUntilDoAST(LoopUntilDoAST aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Frame frame = (Frame) o;
+        aThis.UntilVar.visit(this, frame);
+        return null;
     }
 
     @Override
     public Object visitUntilCommand(UntilCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Frame frame = (Frame) o;
+        int jumpAddr, loopAddr;
+
+        jumpAddr = nextInstrAddr;
+        emit(Machine.JUMPop, 0, Machine.CBr, 0);
+        loopAddr = nextInstrAddr;
+        aThis.C.visit(this, frame);
+        patch(jumpAddr, nextInstrAddr);
+        aThis.I.visit(this, frame);
+        emit(Machine.JUMPIFop, Machine.falseRep, Machine.CBr, loopAddr);
+        return null;
     }
 
     @Override
     public Object visitWhileEndCommand(WhileEndCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return null;
     }
 
     @Override
     public Object visitLooopWhileEndCommand(LoopWhileEndAST aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Frame frame = (Frame) o;
+        int loopAddr;
+
+        loopAddr = nextInstrAddr;
+        aThis.C.visit(this, frame);
+        aThis.WhileV.E.visit(this, frame);
+        emit(Machine.JUMPIFop, Machine.trueRep, Machine.CBr, loopAddr);
+        return null;
     }
 
     @Override
     public Object visitUntilEndCommand(UntilEndCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return null;
     }
 
     @Override
     public Object visitLooopUntilEndCommand(LoopUntilEndAST aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Frame frame = (Frame) o;
+        int loopAddr;
+
+        loopAddr = nextInstrAddr;
+        aThis.C.visit(this, frame);
+        aThis.UntilEnd.E.visit(this, frame);
+        emit(Machine.JUMPIFop, Machine.falseRep, Machine.CBr, loopAddr);
+        return null;
     }
 
     @Override

@@ -9,6 +9,9 @@
             <file>file:/C:/Users/famil/OneDrive/Documents/GitHub/SecondTriangle/ide-triangle-v1.1.src/src/Triangle/IDECompiler.java</file>
             <file>file:/C:/Users/famil/OneDrive/Documents/GitHub/SecondTriangle/ide-triangle-v1.1.src/src/Triangle/SyntacticAnalyzer/Parser.java</file>
             <file>file:/C:/Users/famil/OneDrive/Documents/GitHub/SecondTriangle/ide-triangle-v1.1.src/src/Triangle/AbstractSyntaxTrees/ForFromAST1.java</file>
+            <file>file:/C:/Users/famil/OneDrive/Documents/GitHub/SecondTriangle/ide-triangle-v1.1.src/src/Triangle/AbstractSyntaxTrees/WhileCommand.java</file>
+            <file>file:/C:/Users/famil/OneDrive/Documents/GitHub/SecondTriangle/ide-triangle-v1.1.src/src/Triangle/CodeGenerator/Encoder.java</file>
+            <file>file:/C:/Users/famil/OneDrive/Documents/GitHub/SecondTriangle/ide-triangle-v1.1.src/src/Core/Visitors/TableVisitor.java</file>
             <file>file:/C:/Users/famil/OneDrive/Documents/GitHub/SecondTriangle/ide-triangle-v1.1.src/src/Triangle/AbstractSyntaxTrees/ToCommand.java</file>
         </group>
     </open-files>
