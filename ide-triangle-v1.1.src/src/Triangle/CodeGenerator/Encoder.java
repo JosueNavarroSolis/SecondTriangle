@@ -1173,8 +1173,7 @@ public final class Encoder implements Visitor {
        patch(jumpAddr, nextInstrAddr);
        aThis.ForFrom.E.visit(this, frame);
        aThis.E.E.visit(this, frame);
-       
-       emit(Machine.CALLop, Machine.SBr, Machine.PBr, Machine.leDisplacement);
+       emit(Machine.CALLop, Machine.SBr, Machine.PBr, Machine.leDisplacement);  //aqui hay un pequeño detalle con la variable de control, no es posible acceder a ella.
        emit(Machine.JUMPIFop, Machine.trueRep, Machine.CBr, loopAddr);
        
        return null; 
@@ -1238,12 +1237,14 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitForFromWhile(LoopForFromWhile aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("visitForFromWhile");
+        return null;
     }
 
     @Override
     public Object visitForFromUntil(LoopForFromUntil aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("visitForFromWhile");
+        return null;
     }
 
     @Override

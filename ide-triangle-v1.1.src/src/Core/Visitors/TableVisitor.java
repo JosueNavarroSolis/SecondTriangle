@@ -859,7 +859,7 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
 
     @Override
     public Object visitForFromUntil(LoopForFromUntil aThis, Object o) { // Autor : Valeria Chinchilla
-        aThis.I.visit(this, null);
+        //aThis.I.visit(this, null);
         aThis.E.visit(this, null);
         aThis.ForFrom.visit(this, null);
         aThis.untilV.visit(this, null);
