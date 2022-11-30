@@ -964,10 +964,10 @@ public final class Checker implements Visitor {
       ast.variable = true;
     } else if (binding instanceof ForFromCommand) {
       ast.type = ((ForFromCommand) binding).E.type;
-      ast.variable = true; // Se agrega como una variable
+      ast.variable = false; // Se agrega como una variable
     }else if (binding instanceof ForInCommand) {
       ast.type = ((ForInCommand) binding).E.type;
-      ast.variable = true; // Se agrega como una variable
+      ast.variable = false; // Se agrega como una variable
     } else
       reporter.reportError("\"%\" is not a const or var identifier",
           ast.I.spelling, ast.I.position);
@@ -1227,16 +1227,26 @@ public final class Checker implements Visitor {
 
   @Override
   public Object visitForFromAST1(ForFromAST1 aThis, Object o) {
-    idTable.openScope();
-    idTable.enter(aThis.ForFrom.I.spelling, aThis.ForFrom);
-    if (aThis.ForFrom.duplicated)
-      reporter.reportError("identifier \"%\" already declared",
-          aThis.ForFrom.I.spelling, aThis.ForFrom.position);
-    aThis.Do.visit(this, null);
-    idTable.closeScope();
     aThis.ForFrom.visit(this, null);
-    aThis.E.visit(this, null);
-    aThis.I.visit(this, null);
+    aThis.E.E.visit(this, null);
+    LoopDeclaration loop = new LoopDeclaration(dummyPos);
+    idTable.openScope();
+    if(aThis.I != null){
+      idTable.enter(aThis.I.spelling, loop);
+      
+      if(loop.duplicated)
+        reporter.reportError("identifier \"%\" already declared", aThis.I.spelling, aThis.position);
+    }
+    else{
+      idTable.enter("", loop);
+    }
+      
+    idTable.enter(aThis.ForFrom.I.spelling, aThis.ForFrom); // ingresa el id del for con la primera expresion
+    if (aThis.ForFrom.duplicated)
+      reporter.reportError("identifier \"%\" already declared", aThis.I.spelling, aThis.position);
+
+    aThis.Do.visit(this, null); // command
+    idTable.closeScope(); // Se cierra el scope.
     return null;
   }
 

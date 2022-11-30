@@ -877,7 +877,7 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
 
     @Override
     public Object visitForInDoCommand(ForInDo aThis, Object o) { // Autor : Valeria Chinchilla
-        //aThis.I.visit(this, null);
+        //aThis.I.visit(this, null);  //tira error
         aThis.forAST.visit(this, null);
         aThis.C.visit(this, null);
       

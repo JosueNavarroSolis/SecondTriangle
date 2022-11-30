@@ -430,7 +430,7 @@ public final class Encoder implements Visitor {
     frame = (Frame) o;
     int extraSize1, extraSize2;
     
-    //se guarda la dirrección inicial para cuando 
+    //se guarda la dirrecciï¿½n inicial para cuando 
     //se vuelvan a visitar los 
     int InstrAddr = nextInstrAddr; 
     //se visitan las declaraciones 1 vez para obtener 
@@ -1134,7 +1134,19 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitForFromCommand(ForFromCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      //for ID from Exp1
+      Frame frame = (Frame) o;
+      //visita el identificador (Esta con E para evitar el error, pero deberia estar con aThis.I.visit.. para obtener el tamaÃ±o de la variable de control.
+      int extraSize = ((int) aThis.E.visit(this, frame)); //Esto no lo estÃ¡ tomando bien, el valor llega nulo como si no existiera el Id
+      //salta la evaluacion.
+      emit(Machine.PUSHop, 0, 0, extraSize); 
+
+      aThis.entity = new KnownAddress(Machine.addressSize, frame.level, frame.size);
+      //guarda el tamaño.
+      emit(Machine.STOREIop, extraSize, 0, 0); 
+      //y lo escribe en la tabla.
+      writeTableDetails(aThis);
+      return (extraSize);
     }
 
     @Override
@@ -1146,7 +1158,26 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitForFromAST1(ForFromAST1 aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       //loop for Id from Exp1 // to Exp2 do Com end
+       Frame frame = (Frame) o;
+       int extraSize = ((int) aThis.ForFrom.visit(this, frame));
+       frame = new Frame(frame, extraSize);
+       int jumpAddr, loopAddr;
+       
+       jumpAddr = nextInstrAddr;
+       emit(Machine.JUMPop, 0, Machine.CBr, 0);
+       loopAddr = nextInstrAddr;
+       
+       aThis.Do.C.visit(this, frame);
+       
+       patch(jumpAddr, nextInstrAddr);
+       aThis.ForFrom.E.visit(this, frame);
+       aThis.E.E.visit(this, frame);
+       
+       emit(Machine.CALLop, Machine.SBr, Machine.PBr, Machine.leDisplacement);
+       emit(Machine.JUMPIFop, Machine.trueRep, Machine.CBr, loopAddr);
+       
+       return null; 
     }
 
     @Override
@@ -1217,12 +1248,53 @@ public final class Encoder implements Visitor {
 
     @Override
     public Object visitForInCommand(ForInCommand aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      Frame frame = (Frame) o;
+      int loopAddr;
+      
+      Integer[] sizes = (Integer[]) aThis.E.visit(this, frame);
+      frame = new Frame(frame, (sizes[0]+sizes[1]+2));
+      
+      loopAddr = nextInstrAddr;
+      
+      emit(Machine.LOADop, Machine.addressSize, Machine.STr, -1*(Machine.addressSize));
+      emit(Machine.LOADIop, sizes[1], 0, 0);
+      emit(Machine.STOREop, sizes[1], Machine.STr, -1*(Machine.addressSize + 2*sizes[1]));
+      
+      emit(Machine.LOADop, 0, Machine.PBr, Machine.leDisplacement);
+      
+      emit(Machine.JUMPIFop, Machine.trueRep, Machine.SBr, loopAddr);
+      
+      return null;
+
     }
 
     @Override
     public Object visitForInDoCommand(ForInDo aThis, Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      Frame frame = (Frame) o;
+        
+      int ForExpressionValSize = (Integer) aThis.forAST.E.visit(this, frame);
+      aThis.forAST.entity = new UnknownValue(ForExpressionValSize, frame.level, frame.size);
+      frame = new Frame(frame, ForExpressionValSize);
+      
+      int jumpAddr, loopAddr;
+      jumpAddr = nextInstrAddr;
+      emit(Machine.JUMPop, 0, Machine.SBr, 0);
+      loopAddr = nextInstrAddr;
+      aThis.C.visit(this, frame);
+      
+      emit(Machine.CALLop, Machine.SBr, Machine.PBr, Machine.putintDisplacement);
+      
+      patch(jumpAddr, nextInstrAddr);
+      emit(Machine.LOADop, 1, Machine.STr, -1);
+      emit(Machine.LOADop, 1, Machine.STr, -3);
+      
+      emit(Machine.LOADop, 0, Machine.PBr, Machine.leDisplacement);
+      
+      emit(Machine.JUMPIFop, Machine.trueRep, Machine.SBr, loopAddr);
+      
+      //limpia el espacio de almacenamiento para la variable de control y el limite superior.
+      emit(Machine.POPop, 0,0, ForExpressionValSize);
+      return null;
     }
 
     @Override
