@@ -892,10 +892,12 @@ public Object visitBarCommandCaseRange(BarCommandCaseRange ast, Object obj){
     }
 
     @Override
-    public Object visitVarDeclarationInit(VarDeclarationInit aThis, Object o) { // Autor : Valeria Chinchilla
-        aThis.E.visit(this, null);
-        aThis.I.visit(this, null);
-      
+    public Object visitVarDeclarationInit(VarDeclarationInit ast, Object o) { // Autor : Valeria Chinchilla
+        try{
+            addIdentifier(ast.I.spelling, "KnownAddress", (ast.entity != null?ast.entity.size:0), ((KnownAddress)ast.entity).address.level,  
+               ((KnownAddress) ast.entity).address.displacement,-1);
+        }catch(NullPointerException e){}
+        ast.E.visit(this,null);
         return(null);
     }
 
